@@ -1,4 +1,4 @@
-package com.androidapp.myportfolioappandroid.feature.home.presentation
+package com.androidapp.myportfolioappandroid.feature.dashboard.presentation.layoutlesson
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,28 +10,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun HomeScreen(
-    onProfileClick: () -> Unit,
+fun RowLayoutScreen(
+    layoutId: String,
+    onBackClick: () -> Unit
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Home Screen",
-            modifier = Modifier.align(Alignment.CenterHorizontally)
+            text = "Row layout Screen"
         )
 
-        Button(
-            onClick = {
-                onProfileClick()
-            }
-        ) {
-            Text(
-                text = "Profile"
-            )
+        Button(onClick = onBackClick) {
+            Text(text = "Back")
         }
     }
 }

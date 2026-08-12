@@ -1,4 +1,4 @@
-package com.androidapp.myportfolioappandroid.feature.auth.presentation
+package com.androidapp.myportfolioappandroid.feature.dashboard.presentation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,9 +10,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun LoginScreen(
-    onLoginClick: () -> Unit,
-    onRegisterClick: () -> Unit
+fun DashBoardScreen(
+    onProfileClick: () -> Unit,
+    onRowLayoutClick: (String) -> Unit,
+    onColumnLayoutClick: (String) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -21,27 +22,37 @@ fun LoginScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Login Screen",
+            text = "Dashboard Screen",
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
 
         Button(
             onClick = {
-                onLoginClick()
+                onProfileClick()
             }
         ) {
             Text(
-                text = "Login"
+                text = "Profile"
             )
         }
 
         Button(
             onClick = {
-                onRegisterClick()
+                onRowLayoutClick("rowlayout")
             }
         ) {
             Text(
-                text = "Register"
+                text = "Row Layout"
+            )
+        }
+
+        Button(
+            onClick = {
+                onColumnLayoutClick("columnlayout")
+            }
+        ) {
+            Text(
+                text = "Column Layout"
             )
         }
     }

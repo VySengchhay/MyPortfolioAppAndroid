@@ -10,9 +10,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun LoginScreen(
+fun RegisterScreen(
     onLoginClick: () -> Unit,
-    onRegisterClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -21,7 +20,7 @@ fun LoginScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Login Screen",
+            text = "Register Screen",
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
 
@@ -32,16 +31,6 @@ fun LoginScreen(
         ) {
             Text(
                 text = "Login"
-            )
-        }
-
-        Button(
-            onClick = {
-                onRegisterClick()
-            }
-        ) {
-            Text(
-                text = "Register"
             )
         }
     }
