@@ -1,4 +1,4 @@
-package com.androidapp.myportfolioappandroid.ui.theme
+package com.androidapp.myportfolioappandroid.core.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
