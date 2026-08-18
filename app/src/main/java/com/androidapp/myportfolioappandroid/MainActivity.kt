@@ -27,11 +27,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyPortfolioAppAndroidTheme {
                 val navController = rememberNavController()
-                val authViewModel : AuthViewModel by viewModels()
 
                 AppNavHost(
-                    navController,
-                    authViewModel
+                    navController
                 )
             }
         }
