@@ -13,7 +13,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
+import com.androidapp.myportfolioappandroid.core.ui.loading.LoadingContent
 import com.androidapp.myportfolioappandroid.core.ui.theme.MyPortfolioAppAndroidTheme
+import com.androidapp.myportfolioappandroid.core.util.LoadingUtil
 import com.androidapp.myportfolioappandroid.feature.auth.AuthViewModel
 import com.androidapp.myportfolioappandroid.navigation.AppNavHost
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,6 +29,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyPortfolioAppAndroidTheme {
                 val navController = rememberNavController()
+
+                if (LoadingUtil.isLoading.value) {
+                    LoadingContent()
+                }
 
                 AppNavHost(
                     navController

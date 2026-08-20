@@ -26,7 +26,7 @@ fun LoadingContent() {
         Surface(
             modifier = Modifier
                 .fillMaxSize(),
-            color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.4f)
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8f)
         ) {
             Box(
                 modifier = Modifier.fillMaxWidth(),
