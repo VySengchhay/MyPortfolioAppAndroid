@@ -1,59 +1,101 @@
 package com.androidapp.myportfolioappandroid.feature.dashboard.presentation
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Button
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.androidapp.myportfolioappandroid.core.common.extensions.colors
+import com.androidapp.myportfolioappandroid.core.ui.state.BaseUiState
+import com.androidapp.myportfolioappandroid.core.ui.theme.AppSpacing
+import com.androidapp.myportfolioappandroid.core.util.LoadingUtil
+import com.androidapp.myportfolioappandroid.feature.dashboard.component.AppHomeHeader
+import com.androidapp.myportfolioappandroid.feature.dashboard.component.DashboardCard
 
 @Composable
 fun DashBoardScreen(
+    modifier: Modifier,
+    userName: String,
     onProfileClick: () -> Unit,
-    onRowLayoutClick: (String) -> Unit,
-    onColumnLayoutClick: (String) -> Unit
+    onCategoryClick: (String) -> Unit,
+    dashboardViewModel: DashboardViewModel = hiltViewModel()
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = "Dashboard Screen",
-            modifier = Modifier.align(Alignment.CenterHorizontally)
-        )
+    val dashboardCardUiState by dashboardViewModel.dashboardCardUiModelList.collectAsStateWithLifecycle()
 
-        Button(
-            onClick = {
-                onProfileClick()
+    LaunchedEffect(dashboardCardUiState) {
+        when (val state = dashboardCardUiState) {
+            is BaseUiState.Loading -> {
+                LoadingUtil.showLoading()
             }
-        ) {
-            Text(
-                text = "Profile"
-            )
+
+            is BaseUiState.Success,
+            is BaseUiState.Error,
+            BaseUiState.Idle -> {
+                LoadingUtil.hideLoading()
+            }
+
+            else -> Unit
         }
 
-        Button(
-            onClick = {
-                onRowLayoutClick("rowlayout")
-            }
-        ) {
-            Text(
-                text = "Row Layout"
+    }
+
+    Scaffold(
+        modifier = modifier,
+        topBar = {
+            AppHomeHeader(
+                userName = userName.uppercase(),
+                onProfileClick = onProfileClick,
+                onNotificationClick = {},
             )
         }
-
-        Button(
-            onClick = {
-                onColumnLayoutClick("columnlayout")
+    ) { innerPadding ->
+        when (val state = dashboardCardUiState) {
+            is BaseUiState.Success -> {
+                LazyColumn(
+                    modifier = Modifier
+                        .padding(innerPadding)
+                        .padding(
+                            AppSpacing.medium
+                        )
+                        .fillMaxSize(),
+                ) {
+                    items(
+                        count = state.data.size,
+                        key = { index ->
+                            state.data[index].id
+                        }
+                    ) {
+                        DashboardCard(
+                            modifier = Modifier
+                                .padding(
+                                    vertical = AppSpacing.small
+                                )
+                                .clickable(
+                                    onClick = {
+                                        onCategoryClick(state.data[it].route)
+                                    }
+                                )
+                            ,
+                            title = state.data[it].title,
+                            description = state
+                                .data[it]
+                                .description,
+                            colors = state.data[it].gradientType.colors(),
+                            imageRes = state.data[it].imageRes!!
+                        )
+                    }
+                }
             }
-        ) {
-            Text(
-                text = "Column Layout"
-            )
+
+            else -> Unit
         }
     }
 }
