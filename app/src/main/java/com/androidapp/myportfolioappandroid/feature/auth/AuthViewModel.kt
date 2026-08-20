@@ -1,6 +1,7 @@
 package com.androidapp.myportfolioappandroid.feature.auth
 
 import androidx.lifecycle.ViewModel
+import com.androidapp.myportfolioappandroid.core.common.extensions.nameFromEmail
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,6 +14,9 @@ class AuthViewModel @Inject constructor() : ViewModel() {
 
     private val _authState = MutableStateFlow<AuthState>(AuthState.Idle)
     val authStateFlow = _authState.asStateFlow()
+
+    private val _userName = MutableStateFlow("User")
+    val userName = _userName.asStateFlow()
 
     init {
         checkAuthState()
@@ -30,7 +34,7 @@ class AuthViewModel @Inject constructor() : ViewModel() {
                 signup(event.email, event.password, event.confirmPassword)
             }
 
-            AuthEvent.SignOut -> {
+            is AuthEvent.SignOut -> {
                 signOut()
             }
         }
@@ -38,6 +42,7 @@ class AuthViewModel @Inject constructor() : ViewModel() {
 
     private fun checkAuthState() {
         if (auth.currentUser != null) {
+            refreshUserName()
             _authState.value = AuthState.Authenticated
         } else {
             _authState.value = AuthState.UnAuthenticated
@@ -58,6 +63,7 @@ class AuthViewModel @Inject constructor() : ViewModel() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener{ task ->
                 if (task.isSuccessful) {
+                    refreshUserName()
                     _authState.value = AuthState.Authenticated
                 } else {
                     _authState.value = AuthState.Error(task.exception?.message ?: "Something went wrong.")
@@ -85,6 +91,7 @@ class AuthViewModel @Inject constructor() : ViewModel() {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener{ task ->
                 if (task.isSuccessful) {
+                    refreshUserName()
                     _authState.value = AuthState.Authenticated
                 } else {
                     _authState.value = AuthState.Error(
@@ -96,6 +103,15 @@ class AuthViewModel @Inject constructor() : ViewModel() {
 
     fun signOut() {
         auth.signOut()
+        _userName.value = "User"
         _authState.value = AuthState.UnAuthenticated
+    }
+
+    private fun refreshUserName() {
+        val user = auth.currentUser
+        _userName.value = user?.displayName
+            ?.takeIf { it.isNotBlank() }
+            ?: user?.email?.nameFromEmail()
+            ?: "User"
     }
 }
