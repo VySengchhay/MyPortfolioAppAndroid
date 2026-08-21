@@ -1,4 +1,4 @@
-package com.androidapp.myportfolioappandroid.feature.auth.presentation
+package com.androidapp.myportfolioappandroid.feature.dashboard.presentation.presentation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -8,11 +8,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.androidapp.myportfolioappandroid.feature.auth.AuthEvent
 
 @Composable
-fun LoginScreen(
-    onLoginClick: () -> Unit,
-    onRegisterClick: () -> Unit
+fun ProfileScreen(
+    onBackClick:() -> Unit,
+    onEvent: (AuthEvent) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -21,27 +22,28 @@ fun LoginScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Login Screen",
+            text = "Profile Screen",
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
 
         Button(
             onClick = {
-                onLoginClick()
+                onBackClick()
             }
         ) {
             Text(
-                text = "Login"
+                text = "Back"
             )
         }
 
         Button(
             onClick = {
-                onRegisterClick()
+                onEvent(AuthEvent.SignOut)
+                println("=====> Test")
             }
         ) {
             Text(
-                text = "Register"
+                text = "Logout"
             )
         }
     }
