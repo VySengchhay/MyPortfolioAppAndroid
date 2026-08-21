@@ -22,8 +22,9 @@ import com.androidapp.myportfolioappandroid.feature.dashboard.presentation.DashB
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.LayoutScreen
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.lazycolumn.ColumnLayoutScreen
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.lazyrow.RowLayoutScreen
-import com.androidapp.myportfolioappandroid.feature.profile.presentation.ProfileScreen
+import com.androidapp.myportfolioappandroid.feature.dashboard.presentation.presentation.ProfileScreen
 import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.SystemAndDeviceScreen
+import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.singlephotopick.SinglePhotoPickScreen
 
 @Composable
 fun AppNavHost(
@@ -194,12 +195,30 @@ fun AppNavHost(
         }
 
         composable<DeviceSystemRoute> { backStackEntry ->
+            val route = backStackEntry.toRoute<DeviceSystemRoute>()
             SystemAndDeviceScreen(
                 modifier = Modifier,
                 onBackClick = {
                     navController.popBackStack()
                 },
-                onFeatureClick = {}
+                onFeatureClick = { route ->
+                    when (route) {
+                        "single_photo_pick_route" -> navController.navigate(
+                            SinglePhotoPickRoute(route = route)
+                        )
+                        else -> Unit
+                    }
+                }
+            )
+        }
+
+        composable<SinglePhotoPickRoute> { backStackEntry ->
+            val route = backStackEntry.toRoute<SinglePhotoPickRoute>()
+            SinglePhotoPickScreen(
+                modifier = Modifier,
+                onBack = {
+                    navController.popBackStack()
+                }
             )
         }
     }

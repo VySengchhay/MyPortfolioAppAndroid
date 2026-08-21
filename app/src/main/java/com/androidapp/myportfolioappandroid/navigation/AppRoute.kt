@@ -34,6 +34,12 @@ data class DeviceSystemRoute(
     val route : String
 )
 
+@Serializable
+data class SinglePhotoPickRoute(
+    val route : String
+)
+
+
 
 @Serializable
 data class RowLayoutRoute(
