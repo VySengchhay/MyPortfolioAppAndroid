@@ -24,7 +24,9 @@ import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.l
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.lazyrow.RowLayoutScreen
 import com.androidapp.myportfolioappandroid.feature.dashboard.presentation.presentation.ProfileScreen
 import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.SystemAndDeviceScreen
+import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.multiplephotopick.MultiplePhotoPickScreen
 import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.singlephotopick.SinglePhotoPickScreen
+import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.singlevideopick.SingleVideoPickScreen
 
 @Composable
 fun AppNavHost(
@@ -34,31 +36,35 @@ fun AppNavHost(
     val authUiState by authViewModel.authStateFlow.collectAsStateWithLifecycle()
     val context = LocalContext.current
 
-
-    LaunchedEffect(authUiState) {
-        when (authUiState) {
-            is AuthState.Authenticated -> {
-                navController.navigate(DashboardRoute) {
-                    popUpTo(LoginRoute) {
-                        inclusive = true
-                    }
-                    launchSingleTop = true
-                }
-            }
-
-            is AuthState.Error -> Toast.makeText(
-                context,
-                (authUiState as AuthState.Error).message,
-                Toast.LENGTH_SHORT).show()
-            else -> Unit
-        }
-    }
-
     NavHost(
         navController = navController,
         startDestination = LoginRoute
     ) {
         composable<LoginRoute> {
+            LaunchedEffect(authUiState) {
+                when (val state = authUiState) {
+
+                    is AuthState.Authenticated -> {
+                        navController.navigate(DashboardRoute) {
+                            popUpTo(LoginRoute) {
+                                inclusive = true
+                            }
+                            launchSingleTop = true
+                        }
+                    }
+
+                    is AuthState.Error -> {
+                        Toast.makeText(
+                            context,
+                            state.message,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    else -> Unit
+                }
+            }
+
             LoginScreen(
                 modifier = Modifier,
                 authState = authUiState,
@@ -71,6 +77,30 @@ fun AppNavHost(
         }
 
         composable<SignUpRoute> {
+            LaunchedEffect(authUiState) {
+                when (val state = authUiState) {
+
+                    is AuthState.Authenticated -> {
+                        navController.navigate(DashboardRoute) {
+                            popUpTo(LoginRoute) {
+                                inclusive = true
+                            }
+                            launchSingleTop = true
+                        }
+                    }
+
+                    is AuthState.Error -> {
+                        Toast.makeText(
+                            context,
+                            state.message,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    else -> Unit
+                }
+            }
+
             SignUpScreen(
                 modifier = Modifier,
                 authState = authUiState,
@@ -206,6 +236,16 @@ fun AppNavHost(
                         "single_photo_pick_route" -> navController.navigate(
                             SinglePhotoPickRoute(route = route)
                         )
+
+                        "single_video_pick_route" -> navController.navigate(
+                            SingleVideoPickRoute(route = route)
+                        )
+
+                        "multiple_photo_pick_route" -> navController.navigate(
+                            MultiplePhotoPickRoute(route = route)
+                        )
+
+
                         else -> Unit
                     }
                 }
@@ -215,6 +255,24 @@ fun AppNavHost(
         composable<SinglePhotoPickRoute> { backStackEntry ->
             val route = backStackEntry.toRoute<SinglePhotoPickRoute>()
             SinglePhotoPickScreen(
+                modifier = Modifier,
+                onBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        composable<SingleVideoPickRoute> {
+            SingleVideoPickScreen(
+                modifier = Modifier,
+                onBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        composable<MultiplePhotoPickRoute> {
+            MultiplePhotoPickScreen(
                 modifier = Modifier,
                 onBack = {
                     navController.popBackStack()
