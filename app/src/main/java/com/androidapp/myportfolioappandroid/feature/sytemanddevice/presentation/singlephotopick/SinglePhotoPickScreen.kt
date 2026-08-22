@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
+import com.androidapp.myportfolioappandroid.core.ui.component.FeatureScaffold
 import com.androidapp.myportfolioappandroid.core.ui.component.TopAppBarCategory
 import com.androidapp.myportfolioappandroid.core.ui.theme.AppSpacing
 
@@ -60,21 +61,21 @@ fun SinglePhotoPickScreen(
         pickMedia.launch(visualImage)
     }
 
-    Scaffold(
+    FeatureScaffold(
         modifier = modifier,
-        topBar = {
-            TopAppBarCategory(
-                title = "Select Image",
-                onBackClick = onBack
-            )
-        },
-        floatingActionButton = {
+        title = "Select Image",
+        onBackClick = onBack,
+        bottomBar = {
             Button(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(AppSpacing.medium)
+                ,
                 onClick = {
                     onPickImage()
                 },
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.secondary
+                    containerColor = MaterialTheme.colorScheme.primary
                 )
             ) {
                 Text(
@@ -82,7 +83,7 @@ fun SinglePhotoPickScreen(
                 )
             }
         }
-    ) { innerPadding ->
+    ) {  innerPadding ->
         Column(
             modifier = modifier
                 .padding(innerPadding)
