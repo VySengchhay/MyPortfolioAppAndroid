@@ -23,6 +23,7 @@ fun FeatureScaffold(
             )
         },
         floatingActionButton = floatingActionButton,
+        bottomBar = bottomBar
     ) { innerPadding ->
         content(innerPadding)
     }

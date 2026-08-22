@@ -1,4 +1,4 @@
-package com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.singlephotopick
+package com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.multiplephotopick
 
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -13,11 +13,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -31,22 +32,23 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.androidapp.myportfolioappandroid.core.ui.component.FeatureScaffold
-import com.androidapp.myportfolioappandroid.core.ui.component.TopAppBarCategory
 import com.androidapp.myportfolioappandroid.core.ui.theme.AppSpacing
 
 @Composable
-fun SinglePhotoPickScreen(
+fun MultiplePhotoPickScreen(
     modifier: Modifier = Modifier,
     onBack: () -> Unit,
-    viewModel: SinglePhotoPickViewModel = hiltViewModel()
+    viewModel: MultiplePhotoPickViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
-    val selectSingleImageViewModel by viewModel.uiState.collectAsStateWithLifecycle()
-    val pickMedia = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-        if (uri != null) {
-            viewModel.onEvent(
-                SinglePhotoPickEvent.SelectedImage(uri)
-            )
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val scrollState = rememberScrollState()
+
+    val pickMedia = rememberLauncherForActivityResult(
+        ActivityResultContracts.PickMultipleVisualMedia(5)
+    ) { uris ->
+        if (uris.isNotEmpty()) {
+            viewModel.onSelectedImage(uris)
         } else {
             Toast.makeText(
                 context,
@@ -56,14 +58,17 @@ fun SinglePhotoPickScreen(
         }
     }
 
-    fun onPickImage() {
-        val visualImage = PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
-        pickMedia.launch(visualImage)
+    fun onSelectedImage() {
+        pickMedia.launch(
+            PickVisualMediaRequest(
+                ActivityResultContracts.PickVisualMedia.ImageOnly
+            )
+        )
     }
 
     FeatureScaffold(
         modifier = modifier,
-        title = "Select Single Image",
+        title = "Select Multiple Images",
         onBackClick = onBack,
         bottomBar = {
             Button(
@@ -72,49 +77,52 @@ fun SinglePhotoPickScreen(
                     .padding(AppSpacing.medium)
                 ,
                 onClick = {
-                    onPickImage()
+                    onSelectedImage()
                 },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primary
                 )
             ) {
                 Text(
-                    text = "Select Image"
+                    text = "Select Multiple Image"
                 )
             }
         }
-    ) {  innerPadding ->
+    ) { innerPadding ->
         Column(
             modifier = modifier
                 .padding(innerPadding)
-                .fillMaxSize(),
+                .fillMaxSize()
+                .verticalScroll(state = scrollState),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            if (selectSingleImageViewModel.imageUri != null) {
-                Box(
-                    modifier = Modifier
-                        .padding(AppSpacing.medium)
-                        .wrapContentWidth()
-                        .wrapContentHeight()
-                        .clip(
-                            shape = RoundedCornerShape(16.dp)
-                        )
-                        .background(
-                            color = MaterialTheme.colorScheme.primary
-                        )
-                ) {
-                    AsyncImage(
+            uiState.imageUris?.let {
+                it.forEach { imageUri ->
+                    Box(
                         modifier = Modifier
-                            .padding(AppSpacing.extraSmall)
+                            .padding(AppSpacing.medium)
+                            .wrapContentWidth()
                             .wrapContentHeight()
                             .clip(
                                 shape = RoundedCornerShape(16.dp)
-                            ),
-                        contentScale = ContentScale.Fit,
-                        model = selectSingleImageViewModel.imageUri,
-                        contentDescription = null
-                    )
+                            )
+                            .background(
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                    ) {
+                        AsyncImage(
+                            modifier = Modifier
+                                .padding(AppSpacing.extraSmall)
+                                .wrapContentHeight()
+                                .clip(
+                                    shape = RoundedCornerShape(16.dp)
+                                ),
+                            contentScale = ContentScale.Fit,
+                            model = imageUri,
+                            contentDescription = null
+                        )
+                    }
                 }
             }
         }

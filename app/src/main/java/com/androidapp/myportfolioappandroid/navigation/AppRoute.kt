@@ -39,7 +39,14 @@ data class SinglePhotoPickRoute(
     val route : String
 )
 
-
+@Serializable
+data class SingleVideoPickRoute(
+    val route : String
+)
+@Serializable
+data class MultiplePhotoPickRoute(
+    val route : String
+)
 
 @Serializable
 data class RowLayoutRoute(
