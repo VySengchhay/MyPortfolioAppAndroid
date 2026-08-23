@@ -54,6 +54,11 @@ data class MultipleVideoPickRoute(
 )
 
 @Serializable
+data class PhotoAndVideoPickRoute(
+    val route : String
+)
+
+@Serializable
 data class RowLayoutRoute(
     val layoutId: String
 )

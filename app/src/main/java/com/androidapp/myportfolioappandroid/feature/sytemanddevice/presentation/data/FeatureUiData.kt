@@ -43,14 +43,14 @@ class FeatureUiData @Inject constructor() {
             route = "multiple_video_pick_route",
             imageRes = R.drawable.im_mul_video,
         ),
-//        FeatureUiModel(
-//            id = "DS5",
-//            title = "Select Photo & Image pick",
-//            description = "Pick and display a photo & video from your device using the Android Photo & Video Picker.",
-//            category = FeatureCategory.SYSTEM_DEVICE,
-//            route = "photo_and_video_pick_route",
-//            imageRes = R.drawable.im_photo_video,
-//        ),
+        FeatureUiModel(
+            id = "DS5",
+            title = "Select Photo & Image pick",
+            description = "Pick and display a photo & video from your device using the Android Photo & Video Picker.",
+            category = FeatureCategory.SYSTEM_DEVICE,
+            route = "photo_and_video_pick_route",
+            imageRes = R.drawable.im_photo_video,
+        ),
 
 
         // Layout

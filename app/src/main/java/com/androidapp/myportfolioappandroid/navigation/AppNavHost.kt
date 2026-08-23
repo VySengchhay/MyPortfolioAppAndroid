@@ -26,6 +26,7 @@ import com.androidapp.myportfolioappandroid.feature.dashboard.presentation.prese
 import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.SystemAndDeviceScreen
 import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.multiplephotopick.MultiplePhotoPickScreen
 import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.multiplevideopick.MultipleVideoPickScreen
+import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.photoandvideopick.PhotoAndVideoPickScreen
 import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.singlephotopick.SinglePhotoPickScreen
 import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.singlevideopick.SingleVideoPickScreen
 
@@ -250,6 +251,10 @@ fun AppNavHost(
                             MultipleVideoPickRoute(route = route)
                         )
 
+                        "photo_and_video_pick_route" -> navController.navigate(
+                            PhotoAndVideoPickRoute(route = route)
+                        )
+
                         else -> Unit
                     }
                 }
@@ -286,6 +291,15 @@ fun AppNavHost(
 
         composable<MultipleVideoPickRoute> {
             MultipleVideoPickScreen(
+                modifier = Modifier,
+                onBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        composable<PhotoAndVideoPickRoute> {
+            PhotoAndVideoPickScreen(
                 modifier = Modifier,
                 onBack = {
                     navController.popBackStack()
