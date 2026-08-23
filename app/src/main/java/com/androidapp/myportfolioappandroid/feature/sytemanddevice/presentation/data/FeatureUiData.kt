@@ -51,6 +51,14 @@ class FeatureUiData @Inject constructor() {
             route = "photo_and_video_pick_route",
             imageRes = R.drawable.im_photo_video,
         ),
+        FeatureUiModel(
+            id = "DS6",
+            title = "Camera Launcher",
+            description = "Launch the device camera to capture a photo or video.",
+            category = FeatureCategory.SYSTEM_DEVICE,
+            route = "camera_launcher_route",
+            imageRes = R.drawable.im_camera,
+        ),
 
 
         // Layout

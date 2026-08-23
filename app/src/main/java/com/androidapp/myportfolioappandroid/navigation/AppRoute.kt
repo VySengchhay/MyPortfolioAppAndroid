@@ -59,6 +59,11 @@ data class PhotoAndVideoPickRoute(
 )
 
 @Serializable
+data class CameraLauncherRoute(
+    val route : String
+)
+
+@Serializable
 data class RowLayoutRoute(
     val layoutId: String
 )
