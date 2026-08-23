@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.navigation.compose.rememberNavController
+import com.androidapp.myportfolioappandroid.core.service.fms.NotificationPermissionRequest
 import com.androidapp.myportfolioappandroid.core.ui.loading.LoadingContent
 import com.androidapp.myportfolioappandroid.core.ui.theme.MyPortfolioAppAndroidTheme
 import com.androidapp.myportfolioappandroid.core.util.LoadingUtil
@@ -29,6 +30,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            NotificationPermissionRequest()
+
             MyPortfolioAppAndroidTheme {
                 val navController = rememberNavController()
 
