@@ -86,4 +86,15 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.messaging)
+
+    //retrofit
+    implementation(libs.retrofit.core)
+    implementation(libs.retrofit.kotlinx.serialization)
+    //okhttp
+    implementation(libs.okhttp.core)
+    implementation(libs.okhttp.logging)
+    //kotlin serialization
+    implementation(libs.kotlinx.serialization.json)
+    //coil
+    implementation(libs.coil.compose)
 }
