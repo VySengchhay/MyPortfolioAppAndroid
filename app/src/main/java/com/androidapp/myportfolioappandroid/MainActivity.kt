@@ -1,5 +1,6 @@
 package com.androidapp.myportfolioappandroid
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -28,6 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         enableEdgeToEdge()
         setContent {
             NotificationPermissionRequest()
@@ -46,6 +48,13 @@ class MainActivity : ComponentActivity() {
 //                StatusBarProtection()
             }
         }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        intent.getStringExtra("route")
+        println("=====> onNewIntent route: ${intent.getStringExtra("route")}")
     }
 }
 

@@ -10,6 +10,10 @@
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
+    <!--  Request Internet Permission -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:name=".MyPortfolioAppAndroid"
         android:allowBackup="true"
@@ -19,6 +23,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.MyPortfolioAppAndroid">
 
         <service
@@ -42,6 +47,7 @@
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
+            android:launchMode="singleTop"
             android:theme="@style/Theme.MyPortfolioAppAndroid">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

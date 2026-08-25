@@ -1,6 +1,7 @@
 package com.androidapp.myportfolioappandroid.di
 
 import com.androidapp.myportfolioappandroid.core.network.ApiConstants
+import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.UserApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -52,4 +53,12 @@ object NetworkModule {
 //    ): ApiService {
 //        return retrofit.create(ApiService::class.java)
 //    }
+
+    @Provides
+    @Singleton
+    fun provideUserApi(
+        retrofit: Retrofit
+    ): UserApiService {
+        return retrofit.create(UserApiService::class.java)
+    }
 }

@@ -13,16 +13,17 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.ApiScreen
+import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.user.UserApiScreen
 import com.androidapp.myportfolioappandroid.feature.auth.AuthState
 import com.androidapp.myportfolioappandroid.feature.auth.AuthViewModel
 import com.androidapp.myportfolioappandroid.feature.auth.login.LoginScreen
 import com.androidapp.myportfolioappandroid.feature.auth.signup.SignUpScreen
 import com.androidapp.myportfolioappandroid.feature.componentfeature.presentation.ComponentScreen
 import com.androidapp.myportfolioappandroid.feature.dashboard.presentation.DashBoardScreen
-import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.LayoutScreen
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.lazycolumn.ColumnLayoutScreen
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.lazyrow.RowLayoutScreen
 import com.androidapp.myportfolioappandroid.feature.dashboard.presentation.presentation.ProfileScreen
+import com.androidapp.myportfolioappandroid.feature.notification.NotificationScreen
 import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.SystemAndDeviceScreen
 import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.camera.CameraLauncherScreen
 import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.multiplephotopick.MultiplePhotoPickScreen
@@ -34,7 +35,7 @@ import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.
 @Composable
 fun AppNavHost(
     navController: NavHostController,
-    authViewModel: AuthViewModel = hiltViewModel()
+    authViewModel: AuthViewModel = hiltViewModel(),
 ) {
     val authUiState by authViewModel.authStateFlow.collectAsStateWithLifecycle()
     val context = LocalContext.current
@@ -146,6 +147,9 @@ fun AppNavHost(
                 onProfileClick = {
                     navController.navigate(ProfileRoute)
                 },
+                onNotificationClick = {
+                    navController.navigate(NotificationRoute)
+                },
                 onCategoryClick = { route ->
                     when (route) {
                         "layout" -> navController.navigate(
@@ -170,40 +174,15 @@ fun AppNavHost(
             )
         }
 
-        composable<RowLayoutRoute> { backStackEntry ->
-            val route = backStackEntry.toRoute<RowLayoutRoute>()
-
-            RowLayoutScreen(
-                layoutId = route.layoutId,
-                onBackClick = {
-                    navController.popBackStack()
-                }
-            )
-        }
-
-        composable<ColumnLayoutRoute> { backStackEntry ->
-            val route = backStackEntry.toRoute<ColumnLayoutRoute>()
-
-            ColumnLayoutScreen(
-                layoutId = route.layoutId,
-                onBackClick = {
-                    navController.popBackStack()
-                }
-            )
-        }
-
-        composable<LayoutRoute> { backStackEntry ->
-            val route = backStackEntry.toRoute<LayoutRoute>()
-            LayoutScreen(
+        composable<NotificationRoute> {
+            NotificationScreen(
                 modifier = Modifier,
-                onBackClick = {
+                onBack = {
                     navController.popBackStack()
-                },
-                onFeatureClick = {
-
                 }
             )
         }
+
 
         composable<ComponentRoute> { backStackEntry ->
             val route = backStackEntry.toRoute<ComponentRoute>()
@@ -223,7 +202,13 @@ fun AppNavHost(
                 onBackClick = {
                     navController.popBackStack()
                 },
-                onFeatureClick = {}
+                onFeatureClick = { route ->
+                    when (route) {
+                        "api_user_route" -> navController.navigate(
+                            UserApiRoute(route = route)
+                        )
+                    }
+                }
             )
         }
 
@@ -269,7 +254,6 @@ fun AppNavHost(
         composable<SinglePhotoPickRoute> { backStackEntry ->
             val route = backStackEntry.toRoute<SinglePhotoPickRoute>()
             SinglePhotoPickScreen(
-                modifier = Modifier,
                 onBack = {
                     navController.popBackStack()
                 }
@@ -278,7 +262,6 @@ fun AppNavHost(
 
         composable<SingleVideoPickRoute> {
             SingleVideoPickScreen(
-                modifier = Modifier,
                 onBack = {
                     navController.popBackStack()
                 }
@@ -287,7 +270,6 @@ fun AppNavHost(
 
         composable<MultiplePhotoPickRoute> {
             MultiplePhotoPickScreen(
-                modifier = Modifier,
                 onBack = {
                     navController.popBackStack()
                 }
@@ -296,7 +278,6 @@ fun AppNavHost(
 
         composable<MultipleVideoPickRoute> {
             MultipleVideoPickScreen(
-                modifier = Modifier,
                 onBack = {
                     navController.popBackStack()
                 }
@@ -305,7 +286,6 @@ fun AppNavHost(
 
         composable<PhotoAndVideoPickRoute> {
             PhotoAndVideoPickScreen(
-                modifier = Modifier,
                 onBack = {
                     navController.popBackStack()
                 }
@@ -314,7 +294,14 @@ fun AppNavHost(
 
         composable<CameraLauncherRoute> {
             CameraLauncherScreen(
-                modifier = Modifier,
+                onBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        composable<UserApiRoute> {
+            UserApiScreen(
                 onBack = {
                     navController.popBackStack()
                 }

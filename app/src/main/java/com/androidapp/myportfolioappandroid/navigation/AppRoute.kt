@@ -15,6 +15,9 @@ data object ProfileRoute
 data object DashboardRoute
 
 @Serializable
+data object NotificationRoute
+
+@Serializable
 data class LayoutRoute(
     val route : String
 )
@@ -28,6 +31,12 @@ data class ComponentRoute(
 data class ApiRoute(
     val route : String
 )
+
+@Serializable
+data class UserApiRoute(
+    val route : String
+)
+
 
 @Serializable
 data class DeviceSystemRoute(
@@ -63,12 +72,3 @@ data class CameraLauncherRoute(
     val route : String
 )
 
-@Serializable
-data class RowLayoutRoute(
-    val layoutId: String
-)
-
-@Serializable
-data class ColumnLayoutRoute(
-    val layoutId: String
-)
