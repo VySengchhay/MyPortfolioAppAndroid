@@ -1,8 +1,8 @@
 package com.androidapp.myportfolioappandroid.feature.apifeature.domain.usecase
 
 abstract class BaseUseCase<in P, out R> {
-    suspend operator fun invoke(params: P): Result<R> {
+    suspend operator fun invoke(params: P): R {
         return execute(params)
     }
-    protected abstract suspend fun execute(params: P): Result<R>
+    protected abstract suspend fun execute(params: P): R
 }
