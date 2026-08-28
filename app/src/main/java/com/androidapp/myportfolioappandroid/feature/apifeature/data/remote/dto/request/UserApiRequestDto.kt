@@ -3,7 +3,7 @@ package com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class UserApiRequest(
+data class UserApiRequestDto(
     val name: String,
     val email: String
 )

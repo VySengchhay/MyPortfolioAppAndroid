@@ -4,13 +4,12 @@ import com.androidapp.myportfolioappandroid.core.common.AppError
 import com.androidapp.myportfolioappandroid.core.common.AppResult
 import com.androidapp.myportfolioappandroid.feature.apifeature.data.mapper.toDomain
 import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.UserApiService
-import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.request.UserApiRequest
-import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.response.CreateUserResponse
+import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.request.UserApiRequestDto
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.AddUser
+import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.CreatedUser
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.User
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.repository.UserRepository
 import jakarta.inject.Inject
-import retrofit2.Response
 
 class UserRepositoryImpl @Inject constructor(
     private val userApiService: UserApiService
@@ -25,14 +24,14 @@ class UserRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun addUser(user: AddUser): AppResult<CreateUserResponse> {
+    override suspend fun addUser(user: AddUser): AppResult<CreatedUser> {
         return try {
-            val request = UserApiRequest(
+            val request = UserApiRequestDto(
                 name = user.name,
                 email = user.email
             )
 
-            val response = userApiService.addUser(request)
+            val response = userApiService.addUser(request).toDomain()
 
             AppResult.Success(response)
         } catch (e: Exception) {
