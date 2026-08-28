@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.room.util.query
 import com.androidapp.myportfolioappandroid.core.common.AppResult
+import com.androidapp.myportfolioappandroid.core.common.toMessage
 import com.androidapp.myportfolioappandroid.core.ui.state.BaseUiState
 import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.request.UserApiRequest
 import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.response.CreateUserResponse
@@ -37,9 +38,17 @@ class UserApiViewModel @Inject constructor(
     }
 
     fun getUserList() {
+        _userList.value = BaseUiState.Loading
+
         viewModelScope.launch {
-            getUserListUseCase().collect {
-                _userList.emit(it)
+            when (val result = getUserListUseCase()) {
+                is AppResult.Success -> {
+                    _userList.value = BaseUiState.Success(result.data)
+                }
+
+                is AppResult.Error -> {
+                    _userList.value = BaseUiState.Error(result.error.toMessage())
+                }
             }
         }
     }
@@ -67,7 +76,7 @@ class UserApiViewModel @Inject constructor(
 
                 is AppResult.Error -> {
                     _createUserUiState.update {
-                        BaseUiState.Error(result.error.toString())
+                        BaseUiState.Error(result.error.toMessage())
                     }
                 }
             }

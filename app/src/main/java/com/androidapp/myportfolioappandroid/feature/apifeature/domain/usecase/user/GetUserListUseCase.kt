@@ -12,23 +12,27 @@ import javax.inject.Inject
 class GetUserListUseCase @Inject constructor(
     private val userRepository: UserRepository
 ) {
-    operator fun invoke(): Flow<BaseUiState<List<User>>> {
-        return flow {
-            emit(BaseUiState.Loading)
-
-            when (val result = userRepository.getUserList()) {
-                is AppResult.Success -> {
-                    emit(
-                        BaseUiState.Success(result.data)
-                    )
-                }
-
-                is AppResult.Error -> {
-                    emit(
-                        BaseUiState.Error(result.error.toString())
-                    )
-                }
-            }
-        }
+    suspend operator fun invoke(): AppResult<List<User>> {
+        return userRepository.getUserList()
     }
+
+//    operator fun invoke(): Flow<BaseUiState<List<User>>> {
+//        return flow {
+//            emit(BaseUiState.Loading)
+//
+//            when (val result = userRepository.getUserList()) {
+//                is AppResult.Success -> {
+//                    emit(
+//                        BaseUiState.Success(result.data)
+//                    )
+//                }
+//
+//                is AppResult.Error -> {
+//                    emit(
+//                        BaseUiState.Error(result.error.toString())
+//                    )
+//                }
+//            }
+//        }
+//    }
 }

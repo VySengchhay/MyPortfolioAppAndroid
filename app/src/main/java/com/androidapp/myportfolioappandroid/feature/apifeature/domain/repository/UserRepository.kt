@@ -5,6 +5,7 @@ import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.r
 import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.response.UserListResponse
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.AddUser
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.User
+import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 
 interface UserRepository {
