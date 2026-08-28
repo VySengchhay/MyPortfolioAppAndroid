@@ -49,7 +49,7 @@ fun UserApiScreen(
     onBack: () -> Unit,
 ) {
     val context = LocalContext.current
-    val userUiState by viewModel.userList.collectAsStateWithLifecycle()
+    val userListUiState by viewModel.userList.collectAsStateWithLifecycle()
     val createUserUiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     var name by rememberSaveable { mutableStateOf("") }
@@ -91,8 +91,8 @@ fun UserApiScreen(
         emailError = null
     }
 
-    LaunchedEffect(userUiState) {
-        when (val state = userUiState) {
+    LaunchedEffect(userListUiState) {
+        when (val state = userListUiState) {
             is BaseUiState.Loading -> {
                 LoadingUtil.showLoading()
             }
@@ -165,7 +165,7 @@ fun UserApiScreen(
             }
         }
     ) { innerPadding ->
-        when (val state = userUiState) {
+        when (val state = userListUiState) {
             is BaseUiState.Success -> {
                 LazyColumn(
                     modifier = Modifier
