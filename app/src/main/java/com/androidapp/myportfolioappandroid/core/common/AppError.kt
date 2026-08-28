@@ -22,3 +22,31 @@ sealed interface AppError {
         val cause: Throwable? = null
     ) : AppError
 }
+
+fun AppError.toMessage(): String {
+    return when (this) {
+        is AppError.BadRequest ->
+            "Invalid request"
+
+        is AppError.Unauthorized ->
+            "Unauthorized"
+
+        is AppError.NotFound ->
+            "Users not found"
+
+        is AppError.Server ->
+            "Server error"
+
+        is AppError.Network ->
+            "No internet connection"
+
+        is AppError.Timeout ->
+            "Request timed out"
+
+        is AppError.Http ->
+            "Request failed (${statusCode})"
+
+        is AppError.Unknown ->
+            cause?.message ?: "Something went wrong"
+    }
+}
