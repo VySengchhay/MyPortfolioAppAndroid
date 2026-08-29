@@ -8,6 +8,7 @@ import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.r
 import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.request.UserApiRequestDto
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.AddUser
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.CreateUser
+import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.DeleteUser
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.UpdateUser
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.User
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.repository.UserRepository
@@ -57,6 +58,17 @@ class UserRepositoryImpl @Inject constructor(
                 request
             ).toDomain()
 
+            AppResult.Success(response)
+        } catch (e: Exception) {
+            AppResult.Error(AppError.Unknown(e))
+        }
+    }
+
+    override suspend fun deleteUser(
+        id: Int
+    ): AppResult<DeleteUser> {
+        return try {
+            val response = userApiService.deleteUser(id).toDomain()
             AppResult.Success(response)
         } catch (e: Exception) {
             AppResult.Error(AppError.Unknown(e))

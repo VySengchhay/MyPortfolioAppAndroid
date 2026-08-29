@@ -54,6 +54,7 @@ fun UserApiScreen(
     val userListUiState by viewModel.userList.collectAsStateWithLifecycle()
     val createUserUiState by viewModel.uiState.collectAsStateWithLifecycle()
     val updateUserUiState by viewModel.updateUserUiState.collectAsStateWithLifecycle()
+    val deleteUserUiState by viewModel.deleteUserUiState.collectAsStateWithLifecycle()
 
     var name by rememberSaveable { mutableStateOf("") }
     var email by rememberSaveable { mutableStateOf("") }
@@ -107,6 +108,10 @@ fun UserApiScreen(
         email = user.email
         isEdit = true
         isShowAddUser = true
+    }
+
+    fun onRemoveUser(id: Int) {
+        viewModel.deleteUser(id)
     }
 
     fun onToastMessage(
@@ -207,6 +212,32 @@ fun UserApiScreen(
         }
     }
 
+    LaunchedEffect(deleteUserUiState) {
+        when (val state = deleteUserUiState) {
+            is BaseUiState.Loading -> {
+                LoadingUtil.showLoading()
+            }
+
+            is BaseUiState.Success -> {
+                LoadingUtil.hideLoading()
+                viewModel.getUserList()
+                onToastMessage(state.data.message)
+            }
+
+            is BaseUiState.Error -> {
+                LoadingUtil.hideLoading()
+                onToastMessage(state.message)
+            }
+
+            is BaseUiState.ErrorWithException -> {
+                LoadingUtil.hideLoading()
+                onToastMessage(state.exception.message ?: "Unknown error")
+            }
+
+            else -> {}
+        }
+    }
+
     FeatureScaffold(
         modifier = modifier,
         title = "CRUD User",
@@ -275,7 +306,9 @@ fun UserApiScreen(
                                             onEditClick = {
                                                 onEdit(user)
                                             },
-                                            onRemoveClick = {}
+                                            onRemoveClick = {
+                                                onRemoveUser(user.id)
+                                            }
                                         )
                                     }
                                 }

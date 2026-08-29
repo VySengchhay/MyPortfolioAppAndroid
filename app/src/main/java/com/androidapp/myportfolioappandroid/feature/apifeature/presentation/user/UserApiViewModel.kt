@@ -7,9 +7,11 @@ import com.androidapp.myportfolioappandroid.core.common.toMessage
 import com.androidapp.myportfolioappandroid.core.ui.state.BaseUiState
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.AddUser
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.CreateUser
+import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.DeleteUser
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.UpdateUser
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.User
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.usecase.user.AddUserUseCase
+import com.androidapp.myportfolioappandroid.feature.apifeature.domain.usecase.user.DeleteUserUseCase
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.usecase.user.GetUserListUseCase
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.usecase.user.UpdateUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,7 +26,8 @@ import javax.inject.Inject
 class UserApiViewModel @Inject constructor(
     private val getUserListUseCase: GetUserListUseCase,
     private val addUserUseCase: AddUserUseCase,
-    private val updateUserUseCase: UpdateUserUseCase
+    private val updateUserUseCase: UpdateUserUseCase,
+    private val deleteUserUseCase: DeleteUserUseCase
 ) : ViewModel() {
     private val _userList = MutableStateFlow<BaseUiState<List<User>>?>(null)
     val userList: StateFlow<BaseUiState<List<User>>?> = _userList.asStateFlow()
@@ -34,6 +37,9 @@ class UserApiViewModel @Inject constructor(
 
     private val _updateUserUiState = MutableStateFlow<BaseUiState<UpdateUser>?>(null)
     val updateUserUiState: StateFlow<BaseUiState<UpdateUser>?> = _updateUserUiState.asStateFlow()
+
+    private val _deleteUserUiState = MutableStateFlow<BaseUiState<DeleteUser>?>(null)
+    val deleteUserUiState: StateFlow<BaseUiState<DeleteUser>?> = _deleteUserUiState.asStateFlow()
 
     init {
         getUserList()
@@ -115,5 +121,29 @@ class UserApiViewModel @Inject constructor(
             }
         }
 
+    }
+
+    fun deleteUser(
+        id: Int
+    ) {
+        viewModelScope.launch {
+            _deleteUserUiState.update {
+                BaseUiState.Loading
+            }
+
+            when (val result = deleteUserUseCase(id)) {
+                is AppResult.Success -> {
+                    _deleteUserUiState.update {
+                        BaseUiState.Success(result.data)
+                    }
+                }
+
+                is AppResult.Error -> {
+                    _deleteUserUiState.update {
+                        BaseUiState.Error(result.error.toMessage())
+                    }
+                }
+            }
+        }
     }
 }

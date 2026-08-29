@@ -3,9 +3,11 @@ package com.androidapp.myportfolioappandroid.feature.apifeature.data.remote
 import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.request.UpdateUserRequestDto
 import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.request.UserApiRequestDto
 import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.response.CreateUserResponseDto
+import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.response.DeleteUserResponseDto
 import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.response.UpdateUserResponseDto
 import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.response.UserResponseDto
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -25,4 +27,9 @@ interface UserApiService {
         @Path("id") id: Int,
         @Body user: UpdateUserRequestDto
     ): UpdateUserResponseDto
+
+    @DELETE("users/{id}")
+    suspend fun deleteUser(
+        @Path("id") id: Int
+    ): DeleteUserResponseDto
 }

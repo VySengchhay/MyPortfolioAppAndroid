@@ -3,6 +3,7 @@ package com.androidapp.myportfolioappandroid.feature.apifeature.domain.repositor
 import com.androidapp.myportfolioappandroid.core.common.AppResult
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.AddUser
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.CreateUser
+import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.DeleteUser
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.UpdateUser
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.User
 
@@ -15,4 +16,8 @@ interface UserRepository {
         id: Int,
         user: User
     ): AppResult<UpdateUser>
+
+    suspend fun deleteUser(
+        id: Int
+    ): AppResult<DeleteUser>
 }
