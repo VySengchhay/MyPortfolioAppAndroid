@@ -1,6 +1,7 @@
 package com.androidapp.myportfolioappandroid.feature.apifeature.presentation.user
 
 import android.widget.Toast
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,37 +10,38 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.res.painterResource
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.androidapp.myportfolioappandroid.R
 import com.androidapp.myportfolioappandroid.core.ui.component.FeatureScaffold
 import com.androidapp.myportfolioappandroid.core.ui.state.BaseUiState
 import com.androidapp.myportfolioappandroid.core.ui.theme.AppSpacing
-import com.androidapp.myportfolioappandroid.core.ui.theme.MyPortfolioAppAndroidTheme
 import com.androidapp.myportfolioappandroid.core.util.LoadingUtil
 import com.androidapp.myportfolioappandroid.core.util.ValidationUtil
+import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.User
 import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.component.ItemCard
+import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.user.component.DropdownMenu
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -51,6 +53,7 @@ fun UserApiScreen(
     val context = LocalContext.current
     val userListUiState by viewModel.userList.collectAsStateWithLifecycle()
     val createUserUiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val updateUserUiState by viewModel.updateUserUiState.collectAsStateWithLifecycle()
 
     var name by rememberSaveable { mutableStateOf("") }
     var email by rememberSaveable { mutableStateOf("") }
@@ -60,6 +63,11 @@ fun UserApiScreen(
 
     var isShowAddUser by rememberSaveable { mutableStateOf(false) }
 
+    var expendedIndex by rememberSaveable { mutableIntStateOf(-1) }
+
+    var id by rememberSaveable { mutableStateOf(0) }
+    var isEdit by rememberSaveable { mutableStateOf(false) }
+
     fun onAddUser() {
         nameError = ValidationUtil.validateName(name)
         emailError = ValidationUtil.validateEmail(email)
@@ -68,10 +76,37 @@ fun UserApiScreen(
             return
         }
 
+        isEdit = false
+
         viewModel.addUser(
             name = name.trim(),
             email = email.trim()
         )
+    }
+
+    fun onUpdateUser() {
+        nameError = ValidationUtil.validateName(name)
+        emailError = ValidationUtil.validateEmail(email)
+
+        if (nameError != null || emailError != null) {
+            return
+        }
+
+        val user = User(
+            id = id,
+            name = name.trim(),
+            email = email.trim()
+        )
+
+        viewModel.updateUser(user)
+    }
+
+    fun onEdit(user: User) {
+        id = user.id
+        name = user.name
+        email = user.email
+        isEdit = true
+        isShowAddUser = true
     }
 
     fun onToastMessage(
@@ -143,6 +178,35 @@ fun UserApiScreen(
         }
     }
 
+    LaunchedEffect(updateUserUiState) {
+        when (val state = updateUserUiState) {
+            is BaseUiState.Loading -> {
+                LoadingUtil.showLoading()
+            }
+
+            is BaseUiState.Success -> {
+                LoadingUtil.hideLoading()
+                viewModel.getUserList()
+                isShowAddUser = false
+                isEdit = false
+                onClearForm()
+                onToastMessage(state.data.message)
+            }
+
+            is BaseUiState.Error -> {
+                LoadingUtil.hideLoading()
+                onToastMessage(state.message)
+            }
+
+            is BaseUiState.ErrorWithException -> {
+                LoadingUtil.hideLoading()
+                onToastMessage(state.exception.message ?: "Unknown error")
+            }
+
+            else -> {}
+        }
+    }
+
     FeatureScaffold(
         modifier = modifier,
         title = "CRUD User",
@@ -176,12 +240,46 @@ fun UserApiScreen(
                         key = { index ->
                             index
                         }
-                    ) {
-                        val user = state.data[it]
+                    ) { index ->
+                        val user = state.data[index]
                         ItemCard(
-                            name = user.name,
-                            email = user.email,
-                            onMoreVertClick = {}
+                            item = user,
+                            onClick = { user ->
+                                onEdit(user)
+                            },
+                            trailingIcon = {
+                                Box(
+                                    modifier = Modifier
+                                ) {
+                                    IconButton(
+                                        onClick = {
+                                            expendedIndex = if (expendedIndex == index) {
+                                                -1
+                                            } else {
+                                                index
+                                            }
+                                        }
+                                    ) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_more_vert),
+                                            contentDescription = "More"
+                                        )
+                                    }
+
+                                    if (!isShowAddUser) {
+                                        DropdownMenu(
+                                            expanded = expendedIndex == index,
+                                            onExpandedChange = { expanded ->
+                                                expendedIndex = if (expanded) index else -1
+                                            },
+                                            onEditClick = {
+                                                onEdit(user)
+                                            },
+                                            onRemoveClick = {}
+                                        )
+                                    }
+                                }
+                            }
                         )
                         HorizontalDivider()
                     }
@@ -252,11 +350,19 @@ fun UserApiScreen(
 
                             Button(
                                 onClick = {
-                                    onAddUser()
+                                    if (isEdit) {
+                                        onUpdateUser()
+                                    } else {
+                                        onAddUser()
+                                    }
                                 },
                                 modifier = Modifier.fillMaxWidth(),
                             ) {
-                                Text("Add")
+                                if (isEdit) {
+                                    Text("Update")
+                                } else {
+                                    Text("Add")
+                                }
                             }
                         }
                     }
@@ -268,12 +374,12 @@ fun UserApiScreen(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-private fun UserApiScreenPreview() {
-    MyPortfolioAppAndroidTheme() {
-        UserApiScreen(
-            onBack = {}
-        )
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//private fun UserApiScreenPreview() {
+//    MyPortfolioAppAndroidTheme() {
+//        UserApiScreen(
+//            onBack = {}
+//        )
+//    }
+//}

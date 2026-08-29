@@ -1,6 +1,6 @@
 package com.androidapp.myportfolioappandroid.feature.apifeature.domain.model
 
-data class CreatedUser(
+data class CreateUser(
     val message: String,
     val user: User
 )
