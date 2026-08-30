@@ -12,10 +12,13 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface UserApiService {
     @GET("users")
-    suspend fun getUsers(): List<UserResponseDto>
+    suspend fun getUsers(
+        @Query("name") name: String? = null,
+    ): List<UserResponseDto>
 
     @POST("users")
     suspend fun addUser(

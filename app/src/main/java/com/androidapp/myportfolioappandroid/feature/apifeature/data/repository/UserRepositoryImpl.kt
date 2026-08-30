@@ -17,9 +17,11 @@ import jakarta.inject.Inject
 class UserRepositoryImpl @Inject constructor(
     private val userApiService: UserApiService
 ) : UserRepository {
-    override suspend fun getUserList(): AppResult<List<User>> {
+    override suspend fun getUserList(
+        name: String?
+    ): AppResult<List<User>> {
         return try {
-            val users = userApiService.getUsers().map { it.toDomain() }
+            val users = userApiService.getUsers(name).map { it.toDomain() }
 
             AppResult.Success(users)
         } catch (e: Exception) {

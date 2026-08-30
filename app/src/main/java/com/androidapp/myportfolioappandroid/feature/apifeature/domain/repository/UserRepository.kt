@@ -8,7 +8,9 @@ import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.Upda
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.User
 
 interface UserRepository {
-    suspend fun getUserList(): AppResult<List<User>>
+    suspend fun getUserList(
+        name: String? = null
+    ): AppResult<List<User>>
 
     suspend fun addUser(user: AddUser): AppResult<CreateUser>
 

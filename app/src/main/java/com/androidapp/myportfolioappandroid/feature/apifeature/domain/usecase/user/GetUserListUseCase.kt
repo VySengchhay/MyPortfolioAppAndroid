@@ -8,7 +8,11 @@ import javax.inject.Inject
 class GetUserListUseCase @Inject constructor(
     private val userRepository: UserRepository
 ) {
-    suspend operator fun invoke(): AppResult<List<User>> {
-        return userRepository.getUserList()
+    suspend operator fun invoke(
+        name: String?
+    ): AppResult<List<User>> {
+        return userRepository.getUserList(
+            name = name
+        )
     }
 }

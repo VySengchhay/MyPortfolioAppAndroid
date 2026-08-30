@@ -41,6 +41,7 @@ import com.androidapp.myportfolioappandroid.core.util.LoadingUtil
 import com.androidapp.myportfolioappandroid.core.util.ValidationUtil
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.User
 import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.component.ItemCard
+import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.user.component.AppSearchBar
 import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.user.component.DropdownMenu
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -51,7 +52,9 @@ fun UserApiScreen(
     onBack: () -> Unit,
 ) {
     val context = LocalContext.current
+
     val userListUiState by viewModel.userList.collectAsStateWithLifecycle()
+    val searchQuery by viewModel.searchQuery.collectAsStateWithLifecycle()
     val createUserUiState by viewModel.uiState.collectAsStateWithLifecycle()
     val updateUserUiState by viewModel.updateUserUiState.collectAsStateWithLifecycle()
     val deleteUserUiState by viewModel.deleteUserUiState.collectAsStateWithLifecycle()
@@ -68,6 +71,8 @@ fun UserApiScreen(
 
     var id by rememberSaveable { mutableStateOf(0) }
     var isEdit by rememberSaveable { mutableStateOf(false) }
+
+    var query by rememberSaveable { mutableStateOf("") }
 
     fun onAddUser() {
         nameError = ValidationUtil.validateName(name)
@@ -260,149 +265,161 @@ fun UserApiScreen(
             }
         }
     ) { innerPadding ->
-        when (val state = userListUiState) {
-            is BaseUiState.Success -> {
-                LazyColumn(
-                    modifier = Modifier
-                        .padding(innerPadding)
-                ) {
-                    items(
-                        count = state.data.size,
-                        key = { index ->
-                            index
-                        }
-                    ) { index ->
-                        val user = state.data[index]
-                        ItemCard(
-                            item = user,
-                            onClick = { user ->
-                                onEdit(user)
-                            },
-                            trailingIcon = {
-                                Box(
-                                    modifier = Modifier
-                                ) {
-                                    IconButton(
-                                        onClick = {
-                                            expendedIndex = if (expendedIndex == index) {
-                                                -1
-                                            } else {
-                                                index
-                                            }
-                                        }
-                                    ) {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_more_vert),
-                                            contentDescription = "More"
-                                        )
-                                    }
-
-                                    if (!isShowAddUser) {
-                                        DropdownMenu(
-                                            expanded = expendedIndex == index,
-                                            onExpandedChange = { expanded ->
-                                                expendedIndex = if (expanded) index else -1
-                                            },
-                                            onEditClick = {
-                                                onEdit(user)
-                                            },
-                                            onRemoveClick = {
-                                                onRemoveUser(user.id)
-                                            }
-                                        )
-                                    }
-                                }
-                            }
-                        )
-                        HorizontalDivider()
-                    }
-                }
-
-                if (isShowAddUser) {
-                    ModalBottomSheet(
-                        onDismissRequest = {
-                            isShowAddUser = false
-                            onClearForm()
-                        }
+        Column(
+            modifier = modifier
+                .padding(innerPadding)
+        ) {
+            AppSearchBar(
+                query = searchQuery,
+                onQueryChange = viewModel::searchQueryChange,
+            )
+            when (val state = userListUiState) {
+                is BaseUiState.Success -> {
+                    LazyColumn(
+                        modifier = Modifier
                     ) {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(AppSpacing.medium)
+                        items(
+                            count = state.data.size,
+                            key = { index ->
+                                index
+                            }
+                        ) { index ->
+                            val user = state.data[index]
+                            ItemCard(
+                                item = user,
+                                onClick = { user ->
+                                    onEdit(user)
+                                },
+                                trailingIcon = {
+                                    Box(
+                                        modifier = Modifier
+                                    ) {
+                                        IconButton(
+                                            onClick = {
+                                                expendedIndex = if (expendedIndex == index) {
+                                                    -1
+                                                } else {
+                                                    index
+                                                }
+                                            }
+                                        ) {
+                                            Icon(
+                                                painter = painterResource(id = R.drawable.ic_more_vert),
+                                                contentDescription = "More"
+                                            )
+                                        }
+
+                                        if (!isShowAddUser) {
+                                            DropdownMenu(
+                                                expanded = expendedIndex == index,
+                                                onExpandedChange = { expanded ->
+                                                    expendedIndex = if (expanded) index else -1
+                                                },
+                                                onEditClick = {
+                                                    onEdit(user)
+                                                },
+                                                onRemoveClick = {
+                                                    onRemoveUser(user.id)
+                                                }
+                                            )
+                                        }
+                                    }
+                                }
+                            )
+                            HorizontalDivider()
+                        }
+                    }
+
+                    if (isShowAddUser) {
+                        ModalBottomSheet(
+                            onDismissRequest = {
+                                isShowAddUser = false
+                                onClearForm()
+                            }
                         ) {
-                            Text(
-                                text = "Add User",
-                                style = MaterialTheme.typography.titleLarge
-                            )
-
-                            Spacer(Modifier.padding(AppSpacing.extraSmall))
-
-                            OutlinedTextField(
-                                value = name,
-                                onValueChange = { value ->
-                                    name = value
-                                    if (nameError != null) {
-                                        nameError = ValidationUtil.validateName(value)
-                                    }
-                                },
-                                label = { Text("Name") },
-                                modifier = Modifier.fillMaxWidth(),
-                                isError = nameError != null,
-                                supportingText = {
-                                    nameError?.let { errorMessage ->
-                                        Text(
-                                            text = errorMessage
-                                        )
-                                    }
-                                }
-                            )
-
-                            Spacer(Modifier.padding(AppSpacing.extraSmall))
-
-                            OutlinedTextField(
-                                value = email,
-                                onValueChange = { value ->
-                                    email = value
-                                    if (emailError != null) {
-                                        emailError = ValidationUtil.validateEmail(value)
-                                    }
-                                },
-                                label = { Text("Email") },
-                                modifier = Modifier.fillMaxWidth(),
-                                isError = emailError != null,
-                                supportingText = {
-                                    emailError?.let { errorMessage ->
-                                        Text(
-                                            text = errorMessage
-                                        )
-                                    }
-                                }
-                            )
-
-                            Spacer(Modifier.padding(AppSpacing.extraSmall))
-
-                            Button(
-                                onClick = {
-                                    if (isEdit) {
-                                        onUpdateUser()
-                                    } else {
-                                        onAddUser()
-                                    }
-                                },
-                                modifier = Modifier.fillMaxWidth(),
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(AppSpacing.medium)
                             ) {
-                                if (isEdit) {
-                                    Text("Update")
-                                } else {
-                                    Text("Add")
+                                Text(
+                                    text = "Add User",
+                                    style = MaterialTheme.typography.titleLarge
+                                )
+
+                                Spacer(Modifier.padding(AppSpacing.extraSmall))
+
+                                OutlinedTextField(
+                                    value = name,
+                                    onValueChange = { value ->
+                                        name = value
+                                        if (nameError != null) {
+                                            nameError = ValidationUtil.validateName(value)
+                                        }
+                                    },
+                                    label = { Text("Name") },
+                                    modifier = Modifier.fillMaxWidth(),
+                                    isError = nameError != null,
+                                    supportingText = {
+                                        nameError?.let { errorMessage ->
+                                            Text(
+                                                text = errorMessage
+                                            )
+                                        }
+                                    }
+                                )
+
+                                Spacer(Modifier.padding(AppSpacing.extraSmall))
+
+                                OutlinedTextField(
+                                    value = email,
+                                    onValueChange = { value ->
+                                        email = value
+                                        if (emailError != null) {
+                                            emailError = ValidationUtil.validateEmail(value)
+                                        }
+                                    },
+                                    label = { Text("Email") },
+                                    modifier = Modifier.fillMaxWidth(),
+                                    isError = emailError != null,
+                                    supportingText = {
+                                        emailError?.let { errorMessage ->
+                                            Text(
+                                                text = errorMessage
+                                            )
+                                        }
+                                    }
+                                )
+
+                                Spacer(Modifier.padding(AppSpacing.extraSmall))
+
+                                Button(
+                                    onClick = {
+                                        if (isEdit) {
+                                            onUpdateUser()
+                                        } else {
+                                            onAddUser()
+                                        }
+                                    },
+                                    modifier = Modifier.fillMaxWidth(),
+                                ) {
+                                    if (isEdit) {
+                                        Text("Update")
+                                    } else {
+                                        Text("Add")
+                                    }
                                 }
                             }
                         }
                     }
                 }
+
+
+
+                else -> {}
             }
 
-            else -> {}
+
         }
     }
 }

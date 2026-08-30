@@ -27,10 +27,16 @@ class UserApiViewModel @Inject constructor(
     private val getUserListUseCase: GetUserListUseCase,
     private val addUserUseCase: AddUserUseCase,
     private val updateUserUseCase: UpdateUserUseCase,
-    private val deleteUserUseCase: DeleteUserUseCase
+    private val deleteUserUseCase: DeleteUserUseCase,
 ) : ViewModel() {
     private val _userList = MutableStateFlow<BaseUiState<List<User>>?>(null)
     val userList: StateFlow<BaseUiState<List<User>>?> = _userList.asStateFlow()
+
+    private val _searchQuery = MutableStateFlow("")
+    val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
+
+    private val _userById = MutableStateFlow<BaseUiState<User>?>(null)
+    val userById: StateFlow<BaseUiState<User>?> = _userById.asStateFlow()
 
     private val _createUserUiState = MutableStateFlow<BaseUiState<CreateUser>?>(null)
     val uiState: StateFlow<BaseUiState<CreateUser>?> = _createUserUiState.asStateFlow()
@@ -42,14 +48,18 @@ class UserApiViewModel @Inject constructor(
     val deleteUserUiState: StateFlow<BaseUiState<DeleteUser>?> = _deleteUserUiState.asStateFlow()
 
     init {
-        getUserList()
+        getUserList(
+            name = null
+        )
     }
 
-    fun getUserList() {
+    fun getUserList(
+        name: String? = null
+    ) {
         _userList.value = BaseUiState.Loading
 
         viewModelScope.launch {
-            when (val result = getUserListUseCase()) {
+            when (val result = getUserListUseCase(name)) {
                 is AppResult.Success -> {
                     _userList.value = BaseUiState.Success(result.data)
                 }
@@ -59,6 +69,16 @@ class UserApiViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun searchQueryChange(query: String) {
+        _searchQuery.value = query
+
+        getUserList(
+            name = searchQuery.value
+                .trim()
+                .takeIf { it.isNotEmpty() }
+        )
     }
 
     fun addUser(
