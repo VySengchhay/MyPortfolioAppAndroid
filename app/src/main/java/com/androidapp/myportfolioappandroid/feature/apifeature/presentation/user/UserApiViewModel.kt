@@ -5,11 +5,11 @@ import androidx.lifecycle.viewModelScope
 import com.androidapp.myportfolioappandroid.core.common.AppResult
 import com.androidapp.myportfolioappandroid.core.common.toMessage
 import com.androidapp.myportfolioappandroid.core.ui.state.BaseUiState
-import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.AddUser
-import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.CreateUser
-import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.DeleteUser
-import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.UpdateUser
-import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.User
+import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.user.AddUser
+import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.user.CreateUser
+import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.user.DeleteUser
+import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.user.UpdateUser
+import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.user.User
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.usecase.user.AddUserUseCase
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.usecase.user.DeleteUserUseCase
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.usecase.user.GetUserListUseCase

@@ -1,7 +1,7 @@
 package com.androidapp.myportfolioappandroid.feature.apifeature.domain.usecase.user
 
 import com.androidapp.myportfolioappandroid.core.common.AppResult
-import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.DeleteUser
+import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.user.DeleteUser
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.repository.UserRepository
 import javax.inject.Inject
 

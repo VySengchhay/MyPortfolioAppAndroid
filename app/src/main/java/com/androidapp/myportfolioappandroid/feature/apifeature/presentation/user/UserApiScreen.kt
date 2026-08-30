@@ -39,7 +39,7 @@ import com.androidapp.myportfolioappandroid.core.ui.state.BaseUiState
 import com.androidapp.myportfolioappandroid.core.ui.theme.AppSpacing
 import com.androidapp.myportfolioappandroid.core.util.LoadingUtil
 import com.androidapp.myportfolioappandroid.core.util.ValidationUtil
-import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.User
+import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.user.User
 import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.component.ItemCard
 import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.user.component.AppSearchBar
 import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.user.component.DropdownMenu

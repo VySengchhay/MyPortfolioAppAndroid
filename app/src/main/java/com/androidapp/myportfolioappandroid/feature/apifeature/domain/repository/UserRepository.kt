@@ -1,11 +1,11 @@
 package com.androidapp.myportfolioappandroid.feature.apifeature.domain.repository
 
 import com.androidapp.myportfolioappandroid.core.common.AppResult
-import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.AddUser
-import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.CreateUser
-import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.DeleteUser
-import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.UpdateUser
-import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.User
+import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.user.AddUser
+import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.user.CreateUser
+import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.user.DeleteUser
+import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.user.UpdateUser
+import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.user.User
 
 interface UserRepository {
     suspend fun getUserList(

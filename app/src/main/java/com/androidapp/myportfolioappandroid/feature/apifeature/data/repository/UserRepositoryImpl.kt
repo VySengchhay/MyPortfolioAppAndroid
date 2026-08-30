@@ -6,11 +6,11 @@ import com.androidapp.myportfolioappandroid.feature.apifeature.data.mapper.toDom
 import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.UserApiService
 import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.request.UpdateUserRequestDto
 import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.request.UserApiRequestDto
-import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.AddUser
-import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.CreateUser
-import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.DeleteUser
-import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.UpdateUser
-import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.User
+import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.user.AddUser
+import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.user.CreateUser
+import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.user.DeleteUser
+import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.user.UpdateUser
+import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.user.User
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.repository.UserRepository
 import jakarta.inject.Inject
 

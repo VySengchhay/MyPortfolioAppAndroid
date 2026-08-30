@@ -4,10 +4,10 @@ import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.r
 import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.response.CreateUserResponseDto
 import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.response.DeleteUserResponseDto
 import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.response.UpdateUserResponseDto
-import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.CreateUser
-import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.DeleteUser
-import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.UpdateUser
-import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.User
+import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.user.CreateUser
+import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.user.DeleteUser
+import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.user.UpdateUser
+import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.user.User
 
 fun UserResponseDto.toDomain(): User {
     return User(

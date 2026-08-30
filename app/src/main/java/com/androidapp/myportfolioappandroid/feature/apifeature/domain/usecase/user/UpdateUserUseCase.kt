@@ -1,8 +1,8 @@
 package com.androidapp.myportfolioappandroid.feature.apifeature.domain.usecase.user
 
 import com.androidapp.myportfolioappandroid.core.common.AppResult
-import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.UpdateUser
-import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.User
+import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.user.UpdateUser
+import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.user.User
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.repository.UserRepository
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.usecase.BaseUseCase
 import jakarta.inject.Inject
