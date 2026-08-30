@@ -2,7 +2,7 @@ package com.androidapp.myportfolioappandroid.feature.apifeature.data.repository
 
 import com.androidapp.myportfolioappandroid.core.common.AppError
 import com.androidapp.myportfolioappandroid.core.common.AppResult
-import com.androidapp.myportfolioappandroid.feature.apifeature.data.mapper.toDomain
+import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.mapper.toDomain
 import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.UserApiService
 import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.request.UpdateUserRequestDto
 import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.request.UserApiRequestDto

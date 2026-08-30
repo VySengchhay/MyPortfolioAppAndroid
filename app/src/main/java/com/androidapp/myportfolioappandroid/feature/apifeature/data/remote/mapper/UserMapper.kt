@@ -1,4 +1,4 @@
-package com.androidapp.myportfolioappandroid.feature.apifeature.data.mapper
+package com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.mapper
 
 import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.response.UserResponseDto
 import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.response.CreateUserResponseDto
