@@ -37,6 +37,14 @@ data class UserApiRoute(
     val route : String
 )
 
+@Serializable
+data class TaskRoomDbRoute(
+    val route : String
+)
+
+@Serializable
+data object CreateTaskRoomDbRoute
+
 
 @Serializable
 data class DeviceSystemRoute(

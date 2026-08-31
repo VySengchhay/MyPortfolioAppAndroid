@@ -21,4 +21,34 @@ object ValidationUtil {
             else -> null
         }
     }
+
+    fun validateTitle(title: String): String? {
+        return when {
+            title.isBlank() ->
+                "Title is required"
+
+            title.trim().length < 3 ->
+                "Title must be at least 3 characters"
+
+            title.trim().length > 100 ->
+                "Title must not exceed 100 characters"
+
+            else -> null
+        }
+    }
+
+    fun validateDescription(description: String): String? {
+        return when {
+            description.isBlank() ->
+                "Description is required"
+
+            description.trim().length < 5 ->
+                "Description must be at least 5 characters"
+
+            description.trim().length > 500 ->
+                "Description must not exceed 500 characters"
+
+            else -> null
+        }
+    }
 }

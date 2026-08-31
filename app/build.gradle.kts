@@ -97,4 +97,8 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     //coil
     implementation(libs.coil.compose)
+
+    //Room
+    implementation(libs.room.runtime)
+    ksp(libs.room.compiler)
 }

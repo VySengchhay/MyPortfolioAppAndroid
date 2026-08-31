@@ -13,6 +13,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.ApiScreen
+import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.task.CreateTaskRoomDbScreen
+import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.task.TaskRoomDbScreen
 import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.user.UserApiScreen
 import com.androidapp.myportfolioappandroid.feature.auth.AuthState
 import com.androidapp.myportfolioappandroid.feature.auth.AuthViewModel
@@ -20,8 +22,6 @@ import com.androidapp.myportfolioappandroid.feature.auth.login.LoginScreen
 import com.androidapp.myportfolioappandroid.feature.auth.signup.SignUpScreen
 import com.androidapp.myportfolioappandroid.feature.componentfeature.presentation.ComponentScreen
 import com.androidapp.myportfolioappandroid.feature.dashboard.presentation.DashBoardScreen
-import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.lazycolumn.ColumnLayoutScreen
-import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.lazyrow.RowLayoutScreen
 import com.androidapp.myportfolioappandroid.feature.dashboard.presentation.presentation.ProfileScreen
 import com.androidapp.myportfolioappandroid.feature.notification.NotificationScreen
 import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.SystemAndDeviceScreen
@@ -207,6 +207,10 @@ fun AppNavHost(
                         "api_user_route" -> navController.navigate(
                             UserApiRoute(route = route)
                         )
+
+                        "task_roomdb_route" -> navController.navigate(
+                            TaskRoomDbRoute(route = route)
+                        )
                     }
                 }
             )
@@ -302,6 +306,25 @@ fun AppNavHost(
 
         composable<UserApiRoute> {
             UserApiScreen(
+                onBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        composable<TaskRoomDbRoute> {
+            TaskRoomDbScreen(
+                onBack = {
+                    navController.popBackStack()
+                },
+                onCreateTask = {
+                    navController.navigate(CreateTaskRoomDbRoute)
+                }
+            )
+        }
+
+        composable<CreateTaskRoomDbRoute> {
+            CreateTaskRoomDbScreen(
                 onBack = {
                     navController.popBackStack()
                 }
