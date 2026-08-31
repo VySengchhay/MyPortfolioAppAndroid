@@ -42,7 +42,7 @@ import com.androidapp.myportfolioappandroid.core.util.ValidationUtil
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.user.User
 import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.component.ItemCard
 import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.user.component.AppSearchBar
-import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.user.component.DropdownMenu
+import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.component.DropdownMenu
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -71,8 +71,6 @@ fun UserApiScreen(
 
     var id by rememberSaveable { mutableStateOf(0) }
     var isEdit by rememberSaveable { mutableStateOf(false) }
-
-    var query by rememberSaveable { mutableStateOf("") }
 
     fun onAddUser() {
         nameError = ValidationUtil.validateName(name)

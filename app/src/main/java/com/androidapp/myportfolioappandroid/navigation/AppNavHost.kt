@@ -12,6 +12,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.task.Task
 import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.ApiScreen
 import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.task.CreateTaskRoomDbScreen
 import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.task.TaskRoomDbScreen
@@ -319,12 +320,43 @@ fun AppNavHost(
                 },
                 onCreateTask = {
                     navController.navigate(CreateTaskRoomDbRoute)
+                },
+                onGoToUpdateTask = { task ->
+                    navController.navigate(
+                        UpdateTaskRoomDbRoute(
+                            id = task.id,
+                            title = task.title,
+                            description = task.description,
+                            completeYN = task.completeYN
+                        )
+                    )
+                }
+            )
+        }
+
+        composable<UpdateTaskRoomDbRoute> { backStackEntry ->
+            val route = backStackEntry.toRoute<UpdateTaskRoomDbRoute>()
+
+            val task = route.id?.let {
+                Task(
+                    id = it,
+                    title = route.title.orEmpty(),
+                    description = route.description.orEmpty(),
+                    completeYN = route.completeYN ?: "N"
+                )
+            }
+
+            CreateTaskRoomDbScreen(
+                task = task,
+                onBack = {
+                    navController.popBackStack()
                 }
             )
         }
 
         composable<CreateTaskRoomDbRoute> {
             CreateTaskRoomDbScreen(
+                task = null,
                 onBack = {
                     navController.popBackStack()
                 }

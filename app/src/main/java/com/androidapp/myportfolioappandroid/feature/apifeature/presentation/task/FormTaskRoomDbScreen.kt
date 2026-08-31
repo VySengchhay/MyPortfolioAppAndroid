@@ -1,39 +1,29 @@
 package com.androidapp.myportfolioappandroid.feature.apifeature.presentation.task
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.ExposedDropdownMenuDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.androidapp.myportfolioappandroid.core.common.extensions.showToast
 import com.androidapp.myportfolioappandroid.core.ui.component.FeatureScaffold
+import com.androidapp.myportfolioappandroid.core.ui.state.BaseUiState
 import com.androidapp.myportfolioappandroid.core.ui.theme.AppSpacing
+import com.androidapp.myportfolioappandroid.core.util.LoadingUtil
 import com.androidapp.myportfolioappandroid.core.util.ValidationUtil
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.task.Task
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.task.isCompleted
@@ -47,6 +37,10 @@ fun CreateTaskRoomDbScreen(
     viewModel: TaskRoomDbViewModel = hiltViewModel(),
     onBack: () -> Unit,
 ) {
+    val context = LocalContext.current
+
+    val updateTaskUiState by viewModel.updateTaskUiState.collectAsStateWithLifecycle()
+
     var title by rememberSaveable { mutableStateOf(task?.title ?: "") }
     var titleError by rememberSaveable { mutableStateOf<String?>(null) }
 
@@ -54,14 +48,11 @@ fun CreateTaskRoomDbScreen(
     var descriptionError by rememberSaveable { mutableStateOf<String?>(null) }
 
     var expanded by rememberSaveable { mutableStateOf(false) }
-//
-//    val selectedStatus = if (task?.completeYN == "Y") {
-//        "Completed"
-//    } else {
-//        "Not Completed"
-//    }
 
     var isCompleted by rememberSaveable { mutableStateOf(task?.isCompleted() ?: false) }
+
+    val isEdit = task != null
+    val id = task?.id ?: 0
 
     fun onCreateTask() {
         titleError = ValidationUtil.validateTitle(title)
@@ -84,6 +75,51 @@ fun CreateTaskRoomDbScreen(
         println("=====> $task")
 
         onBack()
+    }
+
+    fun onUpdateTask() {
+        titleError = ValidationUtil.validateTitle(title)
+        descriptionError = ValidationUtil.validateDescription(description)
+
+        if (titleError != null || descriptionError != null) return
+
+        val task = Task(
+            id = id,
+            title = title,
+            description = description,
+            completeYN = if (isCompleted) {
+                "Y"
+            } else {
+                "N"
+            }
+        )
+
+        viewModel.updateTask(task)
+    }
+
+    LaunchedEffect(updateTaskUiState) {
+        when (val state = updateTaskUiState) {
+            is BaseUiState.Loading -> {
+                LoadingUtil.showLoading()
+            }
+
+            is BaseUiState.Success -> {
+                LoadingUtil.hideLoading()
+                viewModel.observeTasks()
+                context.showToast("Update Successfully")
+                onBack()
+            }
+
+            is BaseUiState.Error -> {
+                LoadingUtil.hideLoading()
+            }
+
+            is BaseUiState.ErrorWithException -> {
+                LoadingUtil.hideLoading()
+            }
+
+            else -> {}
+        }
 
     }
 
@@ -96,16 +132,17 @@ fun CreateTaskRoomDbScreen(
             Button(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(
-                        horizontal = AppSpacing.medium
-                    )
-                ,
+                    .padding(horizontal = AppSpacing.medium),
                 onClick = {
-                    onCreateTask()
+                    if (isEdit) {
+                        onUpdateTask()
+                    } else {
+                        onCreateTask()
+                    }
                 }
             ) {
                 Text(
-                    text = "Create Task"
+                    text = if (isEdit) "Update Task" else "Create Task"
                 )
             }
         }

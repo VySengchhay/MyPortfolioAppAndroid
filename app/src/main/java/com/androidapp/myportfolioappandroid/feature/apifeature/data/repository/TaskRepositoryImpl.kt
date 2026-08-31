@@ -31,4 +31,13 @@ class TaskRepositoryImpl @Inject constructor(
             AppResult.Error(AppError.Unknown(e))
         }
     }
+
+    override suspend fun updateTask(task: Task): AppResult<Unit> {
+        return try {
+            taskDao.updateTask(task.toEntity())
+            AppResult.Success(Unit)
+        } catch (e: Exception) {
+            AppResult.Error(AppError.Unknown(e))
+        }
+    }
 }

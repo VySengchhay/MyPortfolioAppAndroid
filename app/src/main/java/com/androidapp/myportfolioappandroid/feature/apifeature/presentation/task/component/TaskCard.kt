@@ -28,8 +28,10 @@ import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.task
 
 @Composable
 fun TaskCard(
+    modifier: Modifier = Modifier,
     task: Task,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    trailingContent: @Composable () -> Unit = {}
 ) {
     val isCompleted = task.isCompleted()
 
@@ -38,8 +40,7 @@ fun TaskCard(
             .fillMaxWidth()
             .padding(
                 vertical = AppSpacing.extraSmall
-            )
-            .clickable(onClick = onClick),
+            ),
         shape = RoundedCornerShape(AppSpacing.medium),
         elevation = CardDefaults.cardElevation(
             defaultElevation = AppSpacing.extraExtraSmall
@@ -68,6 +69,7 @@ fun TaskCard(
                     text = task.title,
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.SemiBold,
+                    maxLines = 1,
                     textDecoration = if (isCompleted) {
                         TextDecoration.LineThrough
                     } else {
@@ -90,6 +92,8 @@ fun TaskCard(
                     overflow = TextOverflow.Ellipsis
                 )
             }
+
+            trailingContent()
         }
     }
 }

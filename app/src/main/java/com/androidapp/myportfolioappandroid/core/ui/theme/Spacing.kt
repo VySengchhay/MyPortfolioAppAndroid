@@ -3,6 +3,7 @@ package com.androidapp.myportfolioappandroid.core.ui.theme
 import androidx.compose.ui.unit.dp
 
 object AppSpacing {
+    val extraExtraSmall = 2.dp
     val extraSmall = 4.dp
     val small = 8.dp
     val medium = 16.dp

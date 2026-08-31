@@ -8,4 +8,6 @@ interface TaskRepository {
 
     fun observeTasks(): Flow<List<Task>>
     suspend fun addTask(task: Task): AppResult<Unit>
+
+    suspend fun updateTask(task: Task): AppResult<Unit>
 }

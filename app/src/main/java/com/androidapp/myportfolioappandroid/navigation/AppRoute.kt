@@ -1,5 +1,7 @@
 package com.androidapp.myportfolioappandroid.navigation
 
+import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.task.Task
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -44,6 +46,14 @@ data class TaskRoomDbRoute(
 
 @Serializable
 data object CreateTaskRoomDbRoute
+
+@Serializable
+data class UpdateTaskRoomDbRoute(
+    val id: Int,
+    val title: String,
+    val description: String,
+    val completeYN: String
+)
 
 
 @Serializable
