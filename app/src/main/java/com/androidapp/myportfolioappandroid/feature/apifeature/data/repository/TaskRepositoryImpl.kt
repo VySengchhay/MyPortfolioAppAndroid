@@ -40,4 +40,14 @@ class TaskRepositoryImpl @Inject constructor(
             AppResult.Error(AppError.Unknown(e))
         }
     }
+
+    override suspend fun deleteTask(id: Int): AppResult<Unit> {
+        return try {
+            taskDao.deleteTask(id)
+            AppResult.Success(Unit)
+        } catch (e: Exception) {
+            AppResult.Error(AppError.Unknown(e))
+        }
+    }
+
 }

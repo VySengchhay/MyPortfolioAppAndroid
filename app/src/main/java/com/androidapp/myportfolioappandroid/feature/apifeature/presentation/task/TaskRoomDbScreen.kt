@@ -53,6 +53,7 @@ fun TaskRoomDbScreen(
 
     val observeTasksUiState by viewModel.observeTasksUiState.collectAsStateWithLifecycle()
     val updateTaskUiState by viewModel.updateTaskUiState.collectAsStateWithLifecycle()
+    val deleteTaskUiState by viewModel.deleteTaskUiState.collectAsStateWithLifecycle()
 
     var expendedIndex by rememberSaveable { mutableStateOf(-1) }
 
@@ -66,6 +67,10 @@ fun TaskRoomDbScreen(
                 }
             )
         )
+    }
+
+    fun onDeleteTask(id: Int) {
+        viewModel.deleteTask(id)
     }
 
     LaunchedEffect(observeTasksUiState) {
@@ -102,6 +107,32 @@ fun TaskRoomDbScreen(
             is BaseUiState.Success -> {
                 LoadingUtil.hideLoading()
                 viewModel.observeTasks()
+            }
+
+            is BaseUiState.Error -> {
+                LoadingUtil.hideLoading()
+                context.showToast(state.message)
+            }
+
+            is BaseUiState.ErrorWithException -> {
+                LoadingUtil.hideLoading()
+                context.showToast(state.exception.message ?: "Unknown error")
+            }
+
+            else -> {}
+        }
+    }
+
+    LaunchedEffect(deleteTaskUiState) {
+        when (val state = deleteTaskUiState) {
+            is BaseUiState.Loading -> {
+                LoadingUtil.showLoading()
+            }
+
+            is BaseUiState.Success -> {
+                LoadingUtil.hideLoading()
+                viewModel.observeTasks()
+                context.showToast("Delete Successfully")
             }
 
             is BaseUiState.Error -> {
@@ -197,7 +228,7 @@ fun TaskRoomDbScreen(
                                             onGoToUpdateTask(task)
                                         },
                                         onRemoveClick = {
-
+                                            onDeleteTask(task.id)
                                         }
                                     )
                                 }

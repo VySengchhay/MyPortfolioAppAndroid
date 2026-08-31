@@ -8,6 +8,7 @@ import com.androidapp.myportfolioappandroid.core.common.toMessage
 import com.androidapp.myportfolioappandroid.core.ui.state.BaseUiState
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.task.Task
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.usecase.task.AddTaskUseCase
+import com.androidapp.myportfolioappandroid.feature.apifeature.domain.usecase.task.DeleteTaskUseCase
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.usecase.task.ObserveTasksUseCase
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.usecase.task.UpdateTaskUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,7 +23,8 @@ import javax.inject.Inject
 class TaskRoomDbViewModel @Inject constructor(
     private val addTaskUseCase: AddTaskUseCase,
     private val observeTasksUseCase: ObserveTasksUseCase,
-    private val updateTaskUseCase: UpdateTaskUseCase
+    private val updateTaskUseCase: UpdateTaskUseCase,
+    private val deleteTaskUseCase: DeleteTaskUseCase
 ) : ViewModel() {
     private val _observeTasksUiState = MutableStateFlow<BaseUiState<List<Task>>?>(null)
     val observeTasksUiState: StateFlow<BaseUiState<List<Task>>?> = _observeTasksUiState.asStateFlow()
@@ -31,6 +33,10 @@ class TaskRoomDbViewModel @Inject constructor(
 
     private val _updateTaskUiState = MutableStateFlow<BaseUiState<Unit>?>(null)
     val updateTaskUiState: StateFlow<BaseUiState<Unit>?> = _updateTaskUiState.asStateFlow()
+
+    private val _deleteTaskUiState = MutableStateFlow<BaseUiState<Unit>?>(null)
+    val deleteTaskUiState: StateFlow<BaseUiState<Unit>?> = _deleteTaskUiState.asStateFlow()
+
 
     init {
         observeTasks()
@@ -77,6 +83,20 @@ class TaskRoomDbViewModel @Inject constructor(
                 }
                 is AppResult.Error -> {
                     _updateTaskUiState.value = BaseUiState.Error(result.error.toMessage())
+                }
+            }
+        }
+    }
+
+    fun deleteTask(id: Int) {
+        viewModelScope.launch {
+            _deleteTaskUiState.value = BaseUiState.Loading
+            when (val result = deleteTaskUseCase(id)) {
+                is AppResult.Success -> {
+                    _deleteTaskUiState.value = BaseUiState.Success(Unit)
+                }
+                is AppResult.Error -> {
+                    _deleteTaskUiState.value = BaseUiState.Error(result.error.toMessage())
                 }
             }
         }
