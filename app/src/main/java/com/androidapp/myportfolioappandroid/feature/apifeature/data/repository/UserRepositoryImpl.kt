@@ -4,8 +4,8 @@ import com.androidapp.myportfolioappandroid.core.common.AppError
 import com.androidapp.myportfolioappandroid.core.common.AppResult
 import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.mapper.toDomain
 import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.UserApiService
-import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.request.UpdateUserRequestDto
-import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.request.UserApiRequestDto
+import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.request.user.UpdateUserRequestDto
+import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.request.user.UserApiRequestDto
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.user.AddUser
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.user.CreateUser
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.user.DeleteUser

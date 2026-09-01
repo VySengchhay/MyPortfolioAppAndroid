@@ -1,4 +1,4 @@
-package com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.request
+package com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.request.user
 
 import kotlinx.serialization.Serializable
 

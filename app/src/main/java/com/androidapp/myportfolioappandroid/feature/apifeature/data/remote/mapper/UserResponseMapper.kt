@@ -1,9 +1,9 @@
 package com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.mapper
 
-import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.response.UserResponseDto
-import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.response.CreateUserResponseDto
-import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.response.DeleteUserResponseDto
-import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.response.UpdateUserResponseDto
+import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.response.user.UserResponseDto
+import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.response.user.CreateUserResponseDto
+import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.response.user.DeleteUserResponseDto
+import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.response.user.UpdateUserResponseDto
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.user.CreateUser
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.user.DeleteUser
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.user.UpdateUser

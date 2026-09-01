@@ -1,11 +1,11 @@
 package com.androidapp.myportfolioappandroid.feature.apifeature.data.remote
 
-import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.request.UpdateUserRequestDto
-import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.request.UserApiRequestDto
-import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.response.CreateUserResponseDto
-import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.response.DeleteUserResponseDto
-import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.response.UpdateUserResponseDto
-import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.response.UserResponseDto
+import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.request.user.UpdateUserRequestDto
+import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.request.user.UserApiRequestDto
+import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.response.user.CreateUserResponseDto
+import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.response.user.DeleteUserResponseDto
+import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.response.user.UpdateUserResponseDto
+import com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.response.user.UserResponseDto
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET

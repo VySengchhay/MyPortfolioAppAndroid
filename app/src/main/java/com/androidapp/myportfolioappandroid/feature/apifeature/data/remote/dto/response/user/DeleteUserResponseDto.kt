@@ -1,10 +1,10 @@
-package com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.response
+package com.androidapp.myportfolioappandroid.feature.apifeature.data.remote.dto.response.user
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class UpdateUserResponseDto(
+data class DeleteUserResponseDto(
     @SerialName("message")
     val message: String,
 
