@@ -66,7 +66,9 @@ fun FeatureItemCard(
                     Image(
                         painter = painterResource(id = imageRes!!),
                         contentDescription = title,
-                        modifier = Modifier.size(AppSpacing.extraExtraLarge),
+                        modifier = Modifier
+                            .size(AppSpacing.extraExtraLarge)
+                            .padding(AppSpacing.small),
                         contentScale = ContentScale.Fit
                     )
                 }

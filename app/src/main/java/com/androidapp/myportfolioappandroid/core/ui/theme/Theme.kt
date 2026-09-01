@@ -39,7 +39,7 @@ private val DarkColorScheme = darkColorScheme(
     outline = DarkBorder,
 
     error = Error,
-    onError = Color.White
+    onError = Warning,
 )
 
 private val LightColorScheme = lightColorScheme(
@@ -70,7 +70,7 @@ private val LightColorScheme = lightColorScheme(
     outline = LightBorder,
 
     error = Error,
-    onError = Color.White
+    onError = Warning,
 )
 
 @Composable

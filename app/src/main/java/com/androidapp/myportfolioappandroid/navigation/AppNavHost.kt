@@ -14,6 +14,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.task.Task
 import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.ApiScreen
+import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.product.ProductScreen
 import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.task.CreateTaskRoomDbScreen
 import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.task.TaskRoomDbScreen
 import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.user.UserApiScreen
@@ -212,6 +213,10 @@ fun AppNavHost(
                         "task_roomdb_route" -> navController.navigate(
                             TaskRoomDbRoute(route = route)
                         )
+
+                        "product_route" -> navController.navigate(
+                            ProductRoute(route = route)
+                        )
                     }
                 }
             )
@@ -360,6 +365,14 @@ fun AppNavHost(
                 onBack = {
                     navController.popBackStack()
                 }
+            )
+        }
+
+        composable<ProductRoute> {
+            ProductScreen(
+                onBack = {
+                    navController.popBackStack()
+                },
             )
         }
     }

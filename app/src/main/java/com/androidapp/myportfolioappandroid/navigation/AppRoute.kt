@@ -55,6 +55,12 @@ data class UpdateTaskRoomDbRoute(
     val completeYN: String
 )
 
+@Serializable
+data class ProductRoute(
+    val route : String
+)
+
+
 
 @Serializable
 data class DeviceSystemRoute(

@@ -1,7 +1,9 @@
 package com.androidapp.myportfolioappandroid.di
 
+import com.androidapp.myportfolioappandroid.feature.apifeature.data.repository.ProductRepositoryImpl
 import com.androidapp.myportfolioappandroid.feature.apifeature.data.repository.TaskRepositoryImpl
 import com.androidapp.myportfolioappandroid.feature.apifeature.data.repository.UserRepositoryImpl
+import com.androidapp.myportfolioappandroid.feature.apifeature.domain.repository.ProductRepository
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.repository.TaskRepository
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.repository.UserRepository
 import dagger.Binds
@@ -26,4 +28,10 @@ abstract class RepositoryModule {
     abstract fun bindTaskRepository(
         taskRepositoryImpl: TaskRepositoryImpl
     ): TaskRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindProductRepository(
+        productRepositoryImpl: ProductRepositoryImpl
+    ): ProductRepository
 }
