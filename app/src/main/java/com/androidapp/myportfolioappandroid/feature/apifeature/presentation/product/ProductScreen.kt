@@ -26,6 +26,7 @@ import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.prod
 fun ProductScreen(
     modifier: Modifier = Modifier,
     onBack: () -> Unit,
+    onProductDetail: (Int) -> Unit,
     viewModel: ProductViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
@@ -79,6 +80,7 @@ fun ProductScreen(
                         ProductCard(
                             product = product,
                             onClick = {
+                                onProductDetail(product.id)
                             }
                         )
                     }

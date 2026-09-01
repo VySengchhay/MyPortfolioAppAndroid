@@ -19,4 +19,13 @@ class ProductRepositoryImpl @Inject constructor(
             AppResult.Error(AppError.Unknown(e))
         }
     }
+
+    override suspend fun getProductById(id: Int): AppResult<Product> {
+        return try {
+            val product = productApiService.getProductById(id).toDomain()
+            AppResult.Success(product)
+        } catch (e: Exception) {
+            AppResult.Error(AppError.Unknown(e))
+        }
+    }
 }

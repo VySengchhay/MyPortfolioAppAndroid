@@ -5,4 +5,8 @@ import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.prod
 
 interface ProductRepository {
     suspend fun getAllProduct(): AppResult<List<Product>>
+
+    suspend fun getProductById(
+        id: Int
+    ): AppResult<Product>
 }

@@ -60,6 +60,11 @@ data class ProductRoute(
     val route : String
 )
 
+@Serializable
+data class ProductDetailRoute(
+    val productId: Int
+)
+
 
 
 @Serializable

@@ -14,6 +14,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.task.Task
 import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.ApiScreen
+import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.product.ProductDetailScreen
 import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.product.ProductScreen
 import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.task.CreateTaskRoomDbScreen
 import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.task.TaskRoomDbScreen
@@ -373,7 +374,23 @@ fun AppNavHost(
                 onBack = {
                     navController.popBackStack()
                 },
+                onProductDetail = {
+                    navController.navigate(
+                        ProductDetailRoute(productId = it)
+                    )
+                }
+            )
+        }
+
+        composable<ProductDetailRoute> { backStackEntry ->
+            val route = backStackEntry.toRoute<ProductDetailRoute>()
+            ProductDetailScreen(
+                productId = route.productId,
+                onBack = {
+                    navController.popBackStack()
+                }
             )
         }
     }
 }
+
