@@ -40,10 +40,13 @@ fun FeatureItemCard(
     Surface(
         modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = AppSpacing.extraSmall)
+            .padding(
+                vertical = AppSpacing.extraSmall,
+            )
             .clickable(onClick = onClick),
         shape = RoundedCornerShape(AppSpacing.small),
-        color = MaterialTheme.colorScheme.surface
+        color = MaterialTheme.colorScheme.surface,
+        shadowElevation = AppSpacing.extraSmall
     ) {
         Row(
             modifier = Modifier
@@ -75,7 +78,7 @@ fun FeatureItemCard(
             }
 
             Spacer(
-                modifier = Modifier.width(16.dp)
+                modifier = Modifier.width(AppSpacing.medium)
             )
 
             Column(

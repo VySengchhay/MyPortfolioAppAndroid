@@ -1,7 +1,7 @@
 package com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.data
 
 import com.androidapp.myportfolioappandroid.R
-import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.model.FeatureCategory
+import com.androidapp.myportfolioappandroid.core.ui.state.FeatureCategory
 import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.model.FeatureUiModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -59,25 +59,6 @@ class FeatureUiData @Inject constructor() {
             route = "camera_launcher_route",
             imageRes = R.drawable.im_camera,
         ),
-
-
-        // Layout
-        FeatureUiModel(
-            id = "LF1",
-            title = "Row",
-            description = "Connect your app to servers and external services to exchange data.",
-            category = FeatureCategory.LAYOUT,
-            route = "row_route",
-            imageRes = R.drawable.im_layout,
-        ),
-        FeatureUiModel(
-            id = "LF2",
-            title = "Column",
-            description = "Connect your app to servers and external services to exchange data.",
-            category = FeatureCategory.LAYOUT,
-            route = "column_route",
-            imageRes = R.drawable.im_layout,
-        )
     )
     
     suspend fun getFeatureUiModelList(

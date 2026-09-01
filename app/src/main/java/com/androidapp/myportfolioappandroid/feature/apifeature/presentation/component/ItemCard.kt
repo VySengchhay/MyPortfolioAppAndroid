@@ -11,6 +11,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,68 +31,77 @@ fun ItemCard(
     onClick: (User) -> Unit,
     trailingIcon: @Composable () -> Unit = {},
 ) {
-    Row(
-        modifier = modifier
+    Card(
+        modifier = Modifier
             .fillMaxWidth()
-            .padding(
-                horizontal = AppSpacing.medium,
-                vertical = AppSpacing.small
-            )
-            .clickable(
-                onClick = {
-                    onClick(item)
-                }
-            ),
-        verticalAlignment = Alignment.CenterVertically
+            .clickable {
+                onClick(item)
+            },
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface
+        ),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = AppSpacing.extraSmall
+        )
     ) {
-        Box(
-            modifier = Modifier
-                .size(AppSpacing.extraExtraLarge)
-                .clip(
-                    shape = CircleShape
-                )
-                .background(
-                    color = MaterialTheme.colorScheme.primaryContainer
+        Row(
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(
+                    horizontal = AppSpacing.medium,
+                    vertical = AppSpacing.small
                 ),
-            contentAlignment = Alignment.Center
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(
-                text = item.name.firstLetter(),
-                style = MaterialTheme.typography.titleMedium
-            )
-        }
-
-        Spacer(
-            modifier = Modifier
-                .width(AppSpacing.medium)
-        )
-
-        Column(
-            modifier = Modifier
-                .weight(1f)
-        ) {
-            Text(
+            Box(
                 modifier = Modifier
-                    .padding(
-                        bottom = AppSpacing.extraSmall
+                    .size(AppSpacing.extraExtraLarge)
+                    .clip(
+                        shape = CircleShape
+                    )
+                    .background(
+                        color = MaterialTheme.colorScheme.primaryContainer
                     ),
-                text = item.name,
-                style = MaterialTheme.typography.titleSmall
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = item.name.firstLetter(),
+                    style = MaterialTheme.typography.titleMedium
+                )
+            }
+
+            Spacer(
+                modifier = Modifier
+                    .width(AppSpacing.medium)
             )
 
-            Text(
-                text = item.email,
-                style = MaterialTheme.typography.bodySmall
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+            ) {
+                Text(
+                    modifier = Modifier
+                        .padding(
+                            bottom = AppSpacing.extraSmall
+                        ),
+                    text = item.name,
+                    style = MaterialTheme.typography.titleSmall
+                )
+
+                Text(
+                    text = item.email,
+                    style = MaterialTheme.typography.bodySmall
+                )
+            }
+
+            Spacer(
+                modifier = Modifier
+                    .weight(1f)
             )
+
+
+            trailingIcon()
         }
-
-        Spacer(
-            modifier = Modifier
-                .weight(1f)
-        )
-
-
-        trailingIcon()
     }
 }
 

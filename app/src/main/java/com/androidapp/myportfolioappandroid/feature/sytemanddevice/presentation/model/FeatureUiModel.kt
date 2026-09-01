@@ -1,6 +1,7 @@
 package com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.model
 
 import androidx.annotation.DrawableRes
+import com.androidapp.myportfolioappandroid.core.ui.state.FeatureCategory
 
 data class FeatureUiModel(
     val id: String,
