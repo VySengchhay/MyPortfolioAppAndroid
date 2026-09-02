@@ -25,6 +25,11 @@ data class LayoutRoute(
 )
 
 @Serializable
+data class BoxRoute(
+    val route : String
+)
+
+@Serializable
 data class ComponentRoute(
     val route : String
 )

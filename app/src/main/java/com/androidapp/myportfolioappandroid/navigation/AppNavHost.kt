@@ -26,6 +26,8 @@ import com.androidapp.myportfolioappandroid.feature.auth.signup.SignUpScreen
 import com.androidapp.myportfolioappandroid.feature.componentfeature.presentation.ComponentScreen
 import com.androidapp.myportfolioappandroid.feature.dashboard.presentation.DashBoardScreen
 import com.androidapp.myportfolioappandroid.feature.dashboard.presentation.presentation.ProfileScreen
+import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.LayoutFeatureScreen
+import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.boxfeature.BoxFeatureScreen
 import com.androidapp.myportfolioappandroid.feature.notification.NotificationScreen
 import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.SystemAndDeviceScreen
 import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.camera.CameraLauncherScreen
@@ -186,6 +188,29 @@ fun AppNavHost(
             )
         }
 
+        composable<LayoutRoute> {
+            LayoutFeatureScreen(
+                modifier = Modifier,
+                onBackClick = {
+                    navController.popBackStack()
+                },
+                onFeatureClick = { route ->
+                    when (route) {
+                        "box_route" -> navController.navigate(
+                            BoxRoute(route = route)
+                        )
+                    }
+                }
+            )
+        }
+
+        composable<BoxRoute> {
+            BoxFeatureScreen(
+                onBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
 
         composable<ComponentRoute> { backStackEntry ->
             val route = backStackEntry.toRoute<ComponentRoute>()
