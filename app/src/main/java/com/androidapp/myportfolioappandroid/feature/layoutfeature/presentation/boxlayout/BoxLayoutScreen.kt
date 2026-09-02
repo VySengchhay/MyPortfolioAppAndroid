@@ -1,4 +1,4 @@
-package com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.boxfeature
+package com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.boxlayout
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -20,14 +20,13 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.androidapp.myportfolioappandroid.R
 import com.androidapp.myportfolioappandroid.core.ui.component.FeatureScaffold
 import com.androidapp.myportfolioappandroid.core.ui.theme.AppSpacing
 
 @Composable
-fun BoxFeatureScreen(
+fun BoxLayoutScreen(
     modifier: Modifier = Modifier,
     onBack: () -> Unit
 ) {

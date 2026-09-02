@@ -27,7 +27,7 @@ import com.androidapp.myportfolioappandroid.feature.componentfeature.presentatio
 import com.androidapp.myportfolioappandroid.feature.dashboard.presentation.DashBoardScreen
 import com.androidapp.myportfolioappandroid.feature.dashboard.presentation.presentation.ProfileScreen
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.LayoutFeatureScreen
-import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.boxfeature.BoxFeatureScreen
+import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.boxlayout.BoxLayoutScreen
 import com.androidapp.myportfolioappandroid.feature.notification.NotificationScreen
 import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.SystemAndDeviceScreen
 import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.camera.CameraLauncherScreen
@@ -205,7 +205,7 @@ fun AppNavHost(
         }
 
         composable<BoxRoute> {
-            BoxFeatureScreen(
+            BoxLayoutScreen(
                 onBack = {
                     navController.popBackStack()
                 }
