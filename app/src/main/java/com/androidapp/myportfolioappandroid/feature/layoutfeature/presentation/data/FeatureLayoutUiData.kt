@@ -12,9 +12,17 @@ import javax.inject.Inject
 class FeatureLayoutUiData @Inject constructor() {
     private val featureLayoutUiModelList: List<FeatureLayoutUiModel> = listOf(
         FeatureLayoutUiModel(
+            id = "LF1",
+            title = "Row",
+            description = "Arrange and display composable items horizontally from left to right with control over spacing, alignment, and distribution.",
+            category = FeatureCategory.LAYOUT,
+            route = "row_route",
+            imageRes = R.drawable.im_row_layout,
+        ),
+        FeatureLayoutUiModel(
             id = "LF3",
             title = "Box",
-            description = "Pick and display a single photo from your device using the Android Photo Picker.",
+            description = "Stack and position composable items on top of each other with customizable alignment.",
             category = FeatureCategory.LAYOUT,
             route = "box_route",
             imageRes = R.drawable.im_box,

@@ -28,6 +28,7 @@ import com.androidapp.myportfolioappandroid.feature.dashboard.presentation.DashB
 import com.androidapp.myportfolioappandroid.feature.dashboard.presentation.presentation.ProfileScreen
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.LayoutFeatureScreen
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.boxlayout.BoxLayoutScreen
+import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.rowlayout.RowLayoutScreen
 import com.androidapp.myportfolioappandroid.feature.notification.NotificationScreen
 import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.SystemAndDeviceScreen
 import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.camera.CameraLauncherScreen
@@ -196,15 +197,27 @@ fun AppNavHost(
                 },
                 onFeatureClick = { route ->
                     when (route) {
+                        "row_route" -> navController.navigate(
+                            RowLayoutRoute(route = route)
+                        )
+
                         "box_route" -> navController.navigate(
-                            BoxRoute(route = route)
+                            BoxLayoutRoute(route = route)
                         )
                     }
                 }
             )
         }
 
-        composable<BoxRoute> {
+        composable<RowLayoutRoute> {
+            RowLayoutScreen(
+                onBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        composable<BoxLayoutRoute> {
             BoxLayoutScreen(
                 onBack = {
                     navController.popBackStack()
