@@ -65,6 +65,10 @@ data class HorizontalPagerLayoutRoute(
     val route : String
 )
 
+@Serializable
+data class VerticalPagerLayoutRoute(
+    val route : String
+)
 
 @Serializable
 data class ComponentRoute(

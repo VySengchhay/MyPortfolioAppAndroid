@@ -35,6 +35,7 @@ import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.l
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.lazyrowlayout.LazyRowLayoutScreen
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.lazyverticalgridlayout.LazyVerticalGridLayoutScreen
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.rowlayout.RowLayoutScreen
+import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.verticalpagerlayout.VerticalPagerLayoutScreen
 import com.androidapp.myportfolioappandroid.feature.notification.NotificationScreen
 import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.SystemAndDeviceScreen
 import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.camera.CameraLauncherScreen
@@ -235,6 +236,10 @@ fun AppNavHost(
                             HorizontalPagerLayoutRoute(route = route)
                         )
 
+                        "vertical_pager_route" -> navController.navigate(
+                            VerticalPagerLayoutRoute(route = route)
+                        )
+
                     }
                 }
             )
@@ -298,6 +303,14 @@ fun AppNavHost(
 
         composable<HorizontalPagerLayoutRoute> {
             HorizontalPagerLayoutScreen(
+                onBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        composable<VerticalPagerLayoutRoute> {
+            VerticalPagerLayoutScreen(
                 onBack = {
                     navController.popBackStack()
                 }

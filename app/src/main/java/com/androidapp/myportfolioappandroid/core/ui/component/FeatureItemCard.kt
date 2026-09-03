@@ -41,7 +41,7 @@ fun FeatureItemCard(
         modifier = modifier
             .fillMaxWidth()
             .padding(
-                vertical = AppSpacing.extraSmall,
+                vertical = AppSpacing.small,
             )
             .clickable(onClick = onClick),
         shape = RoundedCornerShape(AppSpacing.small),

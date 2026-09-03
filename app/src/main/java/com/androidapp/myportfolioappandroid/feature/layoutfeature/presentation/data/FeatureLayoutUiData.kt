@@ -73,7 +73,15 @@ class FeatureLayoutUiData @Inject constructor() {
             description = "Display composable items as pages that can be swiped horizontally from left to right, with support for controlling the current page and page scrolling.",
             category = FeatureCategory.LAYOUT,
             route = "horizontal_pager_route",
-            imageRes = R.drawable.im_lazy_horizontal_grid,
+            imageRes = R.drawable.im_horizontal_pager
+        ),
+        FeatureLayoutUiModel(
+            id = "LF9",
+            title = "Vertical Pager",
+            description = "Display composable items as pages that can be swiped vertically from top to bottom, with support for controlling the current page and page scrolling.",
+            category = FeatureCategory.LAYOUT,
+            route = "vertical_pager_route",
+            imageRes = R.drawable.im_vertical_pager
         ),
     )
     
