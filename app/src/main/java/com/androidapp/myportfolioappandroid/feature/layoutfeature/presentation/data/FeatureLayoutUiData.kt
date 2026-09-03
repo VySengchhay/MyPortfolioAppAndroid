@@ -43,6 +43,14 @@ class FeatureLayoutUiData @Inject constructor() {
             route = "lazy_row_route",
             imageRes = R.drawable.im_lazy_row_layout,
         ),
+        FeatureLayoutUiModel(
+            id = "LF5",
+            title = "Lazy Column",
+            description = "Display a vertically scrolling list of items efficiently by composing only the items currently needed.",
+            category = FeatureCategory.LAYOUT,
+            route = "lazy_column_route",
+            imageRes = R.drawable.im_lazy_column_layout,
+        ),
     )
     
     suspend fun getFeatureLayoutUiModelList(

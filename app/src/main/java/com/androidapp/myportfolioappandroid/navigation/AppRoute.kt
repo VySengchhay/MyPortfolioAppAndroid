@@ -45,6 +45,10 @@ data class LazyRowLayoutRoute(
     val route : String
 )
 
+@Serializable
+data class LazyColumnLayoutRoute(
+    val route : String
+)
 
 @Serializable
 data class ComponentRoute(
