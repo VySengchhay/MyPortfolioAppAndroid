@@ -56,6 +56,11 @@ data class LazyVerticalGridLayoutRoute(
 )
 
 @Serializable
+data class LazyHorizontalGridLayoutRoute(
+    val route : String
+)
+
+@Serializable
 data class ComponentRoute(
     val route : String
 )

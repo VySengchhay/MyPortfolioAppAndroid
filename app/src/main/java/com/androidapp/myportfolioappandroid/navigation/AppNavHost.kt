@@ -30,6 +30,7 @@ import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.L
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.boxlayout.BoxLayoutScreen
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.columnlayout.ColumnLayoutScreen
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.lazycolumnlayout.LazyColumnLayoutScreen
+import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.lazyhorizontalgridlayout.LazyHorizontalGridLayoutScreen
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.lazyrowlayout.LazyRowLayoutScreen
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.lazyverticalgridlayout.LazyVerticalGridLayoutScreen
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.rowlayout.RowLayoutScreen
@@ -224,6 +225,10 @@ fun AppNavHost(
                         "lazy_vertical_grid_route" -> navController.navigate(
                             LazyVerticalGridLayoutRoute(route = route)
                         )
+
+                        "lazy_horizontal_grid_route" -> navController.navigate(
+                            LazyHorizontalGridLayoutRoute(route = route)
+                        )
                     }
                 }
             )
@@ -271,6 +276,14 @@ fun AppNavHost(
 
         composable<LazyVerticalGridLayoutRoute> {
             LazyVerticalGridLayoutScreen(
+                onBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        composable<LazyHorizontalGridLayoutRoute> {
+            LazyHorizontalGridLayoutScreen(
                 onBack = {
                     navController.popBackStack()
                 }
