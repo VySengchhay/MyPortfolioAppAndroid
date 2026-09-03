@@ -29,6 +29,7 @@ import com.androidapp.myportfolioappandroid.feature.dashboard.presentation.prese
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.LayoutFeatureScreen
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.boxlayout.BoxLayoutScreen
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.columnlayout.ColumnLayoutScreen
+import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.horizontalpagerlayout.HorizontalPagerLayoutScreen
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.lazycolumnlayout.LazyColumnLayoutScreen
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.lazyhorizontalgridlayout.LazyHorizontalGridLayoutScreen
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.lazyrowlayout.LazyRowLayoutScreen
@@ -229,6 +230,11 @@ fun AppNavHost(
                         "lazy_horizontal_grid_route" -> navController.navigate(
                             LazyHorizontalGridLayoutRoute(route = route)
                         )
+
+                        "horizontal_pager_route" -> navController.navigate(
+                            HorizontalPagerLayoutRoute(route = route)
+                        )
+
                     }
                 }
             )
@@ -289,6 +295,15 @@ fun AppNavHost(
                 }
             )
         }
+
+        composable<HorizontalPagerLayoutRoute> {
+            HorizontalPagerLayoutScreen(
+                onBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
 
         composable<ComponentRoute> { backStackEntry ->
             val route = backStackEntry.toRoute<ComponentRoute>()

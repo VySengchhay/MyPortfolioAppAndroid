@@ -67,6 +67,14 @@ class FeatureLayoutUiData @Inject constructor() {
             route = "lazy_horizontal_grid_route",
             imageRes = R.drawable.im_lazy_horizontal_grid,
         ),
+        FeatureLayoutUiModel(
+            id = "LF8",
+            title = "Horizontal Pager",
+            description = "Display composable items as pages that can be swiped horizontally from left to right, with support for controlling the current page and page scrolling.",
+            category = FeatureCategory.LAYOUT,
+            route = "horizontal_pager_route",
+            imageRes = R.drawable.im_lazy_horizontal_grid,
+        ),
     )
     
     suspend fun getFeatureLayoutUiModelList(

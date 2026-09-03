@@ -61,6 +61,12 @@ data class LazyHorizontalGridLayoutRoute(
 )
 
 @Serializable
+data class HorizontalPagerLayoutRoute(
+    val route : String
+)
+
+
+@Serializable
 data class ComponentRoute(
     val route : String
 )

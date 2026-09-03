@@ -60,7 +60,8 @@ fun LayoutFeatureScreen(
                 LazyColumn(
                     modifier = Modifier
                         .padding(innerPadding)
-                        .padding(horizontal = AppSpacing.medium),
+                        .padding(horizontal = AppSpacing.screenHorizontal)
+                        .padding(vertical = AppSpacing.screenVertical)
                 ) {
                     items(
                         count = state.data.size,
