@@ -24,7 +24,7 @@ import com.androidapp.myportfolioappandroid.feature.auth.AuthViewModel
 import com.androidapp.myportfolioappandroid.feature.auth.login.LoginScreen
 import com.androidapp.myportfolioappandroid.feature.auth.signup.SignUpScreen
 import com.androidapp.myportfolioappandroid.feature.dashboard.presentation.DashBoardScreen
-import com.androidapp.myportfolioappandroid.feature.dashboard.presentation.presentation.ProfileScreen
+import com.androidapp.myportfolioappandroid.feature.profile.ProfileScreen
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.LayoutFeatureScreen
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.boxlayout.BoxLayoutScreen
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.columnlayout.ColumnLayoutScreen
@@ -142,7 +142,9 @@ fun AppNavHost(
                     else -> Unit
                 }
             }
+            val userName by authViewModel.userName.collectAsStateWithLifecycle()
             ProfileScreen(
+                userName = userName,
                 onBackClick = {
                     navController.popBackStack()
                 },
