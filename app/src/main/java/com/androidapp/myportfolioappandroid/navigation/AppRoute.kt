@@ -29,6 +29,11 @@ data class RowLayoutRoute(
     val route : String
 )
 
+@Serializable
+data class ColumnLayoutRoute(
+    val route : String
+)
+
 
 @Serializable
 data class BoxLayoutRoute(

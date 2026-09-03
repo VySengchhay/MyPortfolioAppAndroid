@@ -28,6 +28,7 @@ import com.androidapp.myportfolioappandroid.feature.dashboard.presentation.DashB
 import com.androidapp.myportfolioappandroid.feature.dashboard.presentation.presentation.ProfileScreen
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.LayoutFeatureScreen
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.boxlayout.BoxLayoutScreen
+import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.columnlayout.ColumnLayoutScreen
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.rowlayout.RowLayoutScreen
 import com.androidapp.myportfolioappandroid.feature.notification.NotificationScreen
 import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.SystemAndDeviceScreen
@@ -201,6 +202,10 @@ fun AppNavHost(
                             RowLayoutRoute(route = route)
                         )
 
+                        "column_route" -> navController.navigate(
+                            ColumnLayoutRoute(route = route)
+                        )
+
                         "box_route" -> navController.navigate(
                             BoxLayoutRoute(route = route)
                         )
@@ -211,6 +216,14 @@ fun AppNavHost(
 
         composable<RowLayoutRoute> {
             RowLayoutScreen(
+                onBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        composable<ColumnLayoutRoute> {
+            ColumnLayoutScreen(
                 onBack = {
                     navController.popBackStack()
                 }

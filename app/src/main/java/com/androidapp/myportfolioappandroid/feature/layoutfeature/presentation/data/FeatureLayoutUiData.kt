@@ -20,6 +20,14 @@ class FeatureLayoutUiData @Inject constructor() {
             imageRes = R.drawable.im_row_layout,
         ),
         FeatureLayoutUiModel(
+            id = "LF2",
+            title = "Column",
+            description = "Arrange composable items vertically from top to bottom with control over spacing, alignment, and distribution.",
+            category = FeatureCategory.LAYOUT,
+            route = "column_route",
+            imageRes = R.drawable.im_column_layout,
+        ),
+        FeatureLayoutUiModel(
             id = "LF3",
             title = "Box",
             description = "Stack and position composable items on top of each other with customizable alignment.",

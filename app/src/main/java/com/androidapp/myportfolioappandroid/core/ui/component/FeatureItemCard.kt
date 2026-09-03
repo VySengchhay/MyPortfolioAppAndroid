@@ -96,6 +96,7 @@ fun FeatureItemCard(
 
                 Text(
                     text = description,
+                    maxLines = 2,
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
