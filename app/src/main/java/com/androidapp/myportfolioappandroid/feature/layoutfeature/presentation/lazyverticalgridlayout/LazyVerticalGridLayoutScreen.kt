@@ -230,8 +230,6 @@ fun SkillGridItem(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            // Image placeholder — swap this Box for
-            // Image(...) or AsyncImage(...) once you have the icon/logo
             Box(
                 modifier = Modifier
                     .size(AppSpacing.extraExtraLarge)
