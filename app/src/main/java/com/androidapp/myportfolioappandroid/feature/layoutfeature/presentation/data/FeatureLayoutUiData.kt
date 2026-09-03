@@ -51,6 +51,14 @@ class FeatureLayoutUiData @Inject constructor() {
             route = "lazy_column_route",
             imageRes = R.drawable.im_lazy_column_layout,
         ),
+        FeatureLayoutUiModel(
+            id = "LF6",
+            title = "Lazy Vertical Grid",
+            description = "Arrange composable items in a vertically scrolling grid with multiple columns, efficiently displaying large collections of items.",
+            category = FeatureCategory.LAYOUT,
+            route = "lazy_vertical_grid_route",
+            imageRes = R.drawable.im_lazy_vertical_grid,
+        ),
     )
     
     suspend fun getFeatureLayoutUiModelList(
