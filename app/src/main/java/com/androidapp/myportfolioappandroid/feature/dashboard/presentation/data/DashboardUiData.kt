@@ -21,15 +21,6 @@ class DashboardUiData @Inject constructor() {
         ),
         DashboardCardUiModel(
             id = 2,
-            title = "Component",
-            description = "Reusable UI elements used to build consistent and interactive interfaces.",
-            category = "Component",
-            route = "component",
-            imageRes = R.drawable.im_component,
-            gradientType = GradientType.SECONDARY
-        ),
-        DashboardCardUiModel(
-            id = 3,
             title = "Api",
             description = "Connect your app to servers and external services to exchange data.",
             category = "Api",
@@ -38,7 +29,7 @@ class DashboardUiData @Inject constructor() {
             gradientType = GradientType.TERTIARY
         ),
         DashboardCardUiModel(
-            id = 4,
+            id = 3,
             title = "System & Device",
             description = "Access and use Android system services and device hardware features.",
             category = "SystemDevice",

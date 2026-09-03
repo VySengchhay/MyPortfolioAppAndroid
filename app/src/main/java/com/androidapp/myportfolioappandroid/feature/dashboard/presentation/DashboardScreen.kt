@@ -25,6 +25,7 @@ fun DashBoardScreen(
     modifier: Modifier,
     userName: String,
     onProfileClick: () -> Unit,
+    onNotificationClick: () -> Unit,
     onCategoryClick: (String) -> Unit,
     dashboardViewModel: DashboardViewModel = hiltViewModel()
 ) {
@@ -53,7 +54,7 @@ fun DashBoardScreen(
             AppHomeHeader(
                 userName = userName.uppercase(),
                 onProfileClick = onProfileClick,
-                onNotificationClick = {},
+                onNotificationClick = onNotificationClick,
             )
         }
     ) { innerPadding ->

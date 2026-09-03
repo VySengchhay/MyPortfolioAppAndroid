@@ -23,7 +23,6 @@ import com.androidapp.myportfolioappandroid.feature.auth.AuthState
 import com.androidapp.myportfolioappandroid.feature.auth.AuthViewModel
 import com.androidapp.myportfolioappandroid.feature.auth.login.LoginScreen
 import com.androidapp.myportfolioappandroid.feature.auth.signup.SignUpScreen
-import com.androidapp.myportfolioappandroid.feature.componentfeature.presentation.ComponentScreen
 import com.androidapp.myportfolioappandroid.feature.dashboard.presentation.DashBoardScreen
 import com.androidapp.myportfolioappandroid.feature.dashboard.presentation.presentation.ProfileScreen
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.LayoutFeatureScreen
@@ -314,18 +313,6 @@ fun AppNavHost(
                 onBack = {
                     navController.popBackStack()
                 }
-            )
-        }
-
-
-        composable<ComponentRoute> { backStackEntry ->
-            val route = backStackEntry.toRoute<ComponentRoute>()
-            ComponentScreen(
-                modifier = Modifier,
-                onBackClick = {
-                    navController.popBackStack()
-                },
-                onFeatureClick = {}
             )
         }
 
