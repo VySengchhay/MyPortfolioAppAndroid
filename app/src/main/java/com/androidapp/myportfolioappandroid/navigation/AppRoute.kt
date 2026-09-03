@@ -41,6 +41,12 @@ data class BoxLayoutRoute(
 )
 
 @Serializable
+data class LazyRowLayoutRoute(
+    val route : String
+)
+
+
+@Serializable
 data class ComponentRoute(
     val route : String
 )
