@@ -26,7 +26,9 @@ fun LoadingContent() {
         Surface(
             modifier = Modifier
                 .fillMaxSize(),
-            color = MaterialTheme.colorScheme.onBackground
+            // onBackground is a foreground/text color. Using it here turns the
+            // full-screen loader dark in the light theme.
+            color = MaterialTheme.colorScheme.background
         ) {
             Box(
                 modifier = Modifier.fillMaxWidth(),

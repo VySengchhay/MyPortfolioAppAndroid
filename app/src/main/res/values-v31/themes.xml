@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<!--    <style name="Theme.MyPortfolioAppAndroid" parent="android:Theme.Material.Light.NoActionBar" />-->
+
+    <style name="Theme.MyPortfolioAppAndroidLogo" parent="Theme.SplashScreen" >
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/animation_holder</item>
+        <item name="android:windowSplashScreenBackground">@color/splash_background_color</item>
+        <item name="postSplashScreenTheme">@style/Theme.MyPortfolioAppAndroid</item>
+    </style>
+</resources>
