@@ -39,8 +39,7 @@ class DashboardUiData @Inject constructor() {
         ),
     )
 
-    suspend fun getDashboardCardUiModelList(): Flow<List<DashboardCardUiModel>> {
-        delay(500)
+    fun getDashboardCardUiModelList(): Flow<List<DashboardCardUiModel>> {
         return flow {
             emit(dashboardCardUiModelList)
         }
