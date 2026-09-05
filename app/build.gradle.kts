@@ -104,4 +104,8 @@ dependencies {
 
     //Splash Screen
     implementation(libs.androidx.core.splashscreen)
+
+    //location
+    implementation(libs.play.services.location)
+    implementation(libs.accompanist.permissions)
 }

@@ -147,3 +147,8 @@ data class CameraLauncherRoute(
     val route : String
 )
 
+@Serializable
+data class GetLocationRoute(
+    val route: String
+)
+

@@ -59,6 +59,14 @@ class FeatureUiData @Inject constructor() {
             route = "camera_launcher_route",
             imageRes = R.drawable.im_camera,
         ),
+        FeatureUiModel(
+            id = "DS7",
+            title = "Get Location",
+            description = "Access the device's current location to determine its latitude and longitude using location services.",
+            category = FeatureCategory.SYSTEM_DEVICE,
+            route = "get_location_route",
+            imageRes = R.drawable.im_location,
+        ),
     )
     
     suspend fun getFeatureUiModelList(

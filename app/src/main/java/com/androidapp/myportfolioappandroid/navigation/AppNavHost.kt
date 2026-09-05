@@ -38,6 +38,7 @@ import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.v
 import com.androidapp.myportfolioappandroid.feature.notification.NotificationScreen
 import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.SystemAndDeviceScreen
 import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.camera.CameraLauncherScreen
+import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.location.GetLocationScreen
 import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.multiplephotopick.MultiplePhotoPickScreen
 import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.multiplevideopick.MultipleVideoPickScreen
 import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.photoandvideopick.PhotoAndVideoPickScreen
@@ -376,6 +377,10 @@ fun AppNavHost(
                             CameraLauncherRoute(route = route)
                         )
 
+                        "get_location_route" -> navController.navigate(
+                            GetLocationRoute(route = route)
+                        )
+
                         else -> Unit
                     }
                 }
@@ -430,6 +435,15 @@ fun AppNavHost(
                 }
             )
         }
+
+        composable<GetLocationRoute> {
+            GetLocationScreen(
+                onBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
 
         composable<UserApiRoute> {
             UserApiScreen(
