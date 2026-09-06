@@ -89,7 +89,6 @@ fun DashBoardScreen(
                             description = state
                                 .data[it]
                                 .description,
-                            colors = state.data[it].gradientType.colors(),
                             imageRes = state.data[it].imageRes!!
                         )
                     }

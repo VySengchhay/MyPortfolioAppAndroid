@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,34 +28,95 @@ import com.androidapp.myportfolioappandroid.R
 import com.androidapp.myportfolioappandroid.core.ui.theme.AppSpacing
 import com.androidapp.myportfolioappandroid.core.ui.theme.MyPortfolioAppAndroidTheme
 
+//@Composable
+//fun DashboardCard(
+//    modifier: Modifier,
+//    title: String,
+//    description: String,
+//    colors: List<Color>,
+//    @DrawableRes imageRes: Int,
+//) {
+//    Card(
+//        modifier = modifier
+//            .fillMaxWidth()
+//            .height(110.dp),
+//        shape = RoundedCornerShape(AppSpacing.medium)
+//    ) {
+//        Row(
+//            modifier = Modifier
+//                .fillMaxSize()
+//                .background(
+//                    brush = Brush.horizontalGradient(
+//                        colors = colors
+//                    )
+//                )
+//                .padding(
+//                start = 22.dp,
+//                end = 20.dp,
+//                top = 18.dp,
+//                bottom = 14.dp
+//            ),
+//        ) {
+//            Column(
+//                modifier = Modifier
+//                    .fillMaxHeight()
+//                    .fillMaxSize(.7f)
+//            ) {
+//                Text(
+//                    text = title,
+//                    style = MaterialTheme.typography.titleLarge,
+//                    color = MaterialTheme.colorScheme.onPrimary
+//                )
+//
+//                Spacer(modifier = Modifier.height(AppSpacing.medium))
+//
+//                Text(
+//                    text = description,
+//                    style = MaterialTheme.typography.bodySmall,
+//                    color = MaterialTheme.colorScheme.onPrimary
+//                )
+//            }
+//
+//            Spacer(modifier = Modifier.weight(1f))
+//
+//            Image(
+//                modifier = Modifier
+//                    .fillMaxHeight(),
+//                painter = painterResource(id = imageRes),
+//                contentDescription = "Google",
+//            )
+//        }
+//    }
+//}
+
 @Composable
 fun DashboardCard(
     modifier: Modifier,
     title: String,
     description: String,
-    colors: List<Color>,
     @DrawableRes imageRes: Int,
 ) {
     Card(
         modifier = modifier
             .fillMaxWidth()
             .height(110.dp),
-        shape = RoundedCornerShape(AppSpacing.medium)
+        shape = RoundedCornerShape(AppSpacing.medium),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.background,
+        ),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = AppSpacing.extraSmall
+        )
     ) {
         Row(
             modifier = Modifier
                 .fillMaxSize()
-                .background(
-                    brush = Brush.horizontalGradient(
-                        colors = colors
-                    )
-                )
                 .padding(
-                start = 22.dp,
-                end = 20.dp,
-                top = 18.dp,
-                bottom = 14.dp
-            ),
+                    start = 22.dp,
+                    end = 20.dp,
+                    top = 18.dp,
+                    bottom = 14.dp
+                ),
         ) {
             Column(
                 modifier = Modifier
@@ -64,15 +126,14 @@ fun DashboardCard(
                 Text(
                     text = title,
                     style = MaterialTheme.typography.titleLarge,
-                    color = MaterialTheme.colorScheme.onPrimary
                 )
 
-                Spacer(modifier = Modifier.height(AppSpacing.medium))
+                Spacer(modifier = Modifier.height(AppSpacing.extraSmall))
 
                 Text(
                     text = description,
                     style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onPrimary
+                    color = MaterialTheme.colorScheme.onSurface
                 )
             }
 
@@ -98,10 +159,6 @@ fun DashboardCardPreview() {
             modifier = Modifier,
             title = "Layout",
             description = "Build and organize UI elements using Jetpack Compose layout components.",
-            colors = listOf<Color>(
-                MaterialTheme.colorScheme.primary,
-                MaterialTheme.colorScheme.secondary
-            ),
             imageRes = R.drawable.ic_google
         )
     }

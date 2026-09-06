@@ -11,6 +11,37 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
+private val LightColorScheme = lightColorScheme(
+    primary = Primary,
+    onPrimary = Color.White,
+
+    primaryContainer = Color(0xFFDCE7F2),
+    onPrimaryContainer = Color(0xFF0F2540),
+
+    secondary = Secondary,
+    onSecondary = Color.White,
+
+    secondaryContainer = Color(0xFFE2E8F0),
+    onSecondaryContainer = Color(0xFF1E293B),
+
+    tertiary = Accent,
+    onTertiary = Color.White,
+
+    background = LightBackground,
+    onBackground = LightTextPrimary,
+
+    surface = LightSurface,
+    onSurface = LightTextPrimary,
+
+    surfaceVariant = LightSurfaceVariant,
+    onSurfaceVariant = LightTextSecondary,
+
+    outline = LightBorder,
+
+    error = Error,
+    onError = Color.White,
+)
+
 private val DarkColorScheme = darkColorScheme(
     primary = PrimaryLight,
     onPrimary = Color.White,
@@ -19,7 +50,7 @@ private val DarkColorScheme = darkColorScheme(
     onPrimaryContainer = Color.White,
 
     secondary = SecondaryLight,
-    onSecondary = Color(0xFF00363D),
+    onSecondary = Color.White,
 
     secondaryContainer = SecondaryDark,
     onSecondaryContainer = Color.White,
@@ -39,38 +70,7 @@ private val DarkColorScheme = darkColorScheme(
     outline = DarkBorder,
 
     error = Error,
-    onError = Warning,
-)
-
-private val LightColorScheme = lightColorScheme(
-    primary = Primary,
-    onPrimary = Color.White,
-
-    primaryContainer = Color(0xFFDBEAFE),
-    onPrimaryContainer = Color(0xFF172554),
-
-    secondary = Secondary,
-    onSecondary = Color.White,
-
-    secondaryContainer = Color(0xFFCFFAFE),
-    onSecondaryContainer = Color(0xFF083344),
-
-    tertiary = Accent,
-    onTertiary = Color.White,
-
-    background = LightBackground,
-    onBackground = LightTextPrimary,
-
-    surface = LightSurface,
-    onSurface = LightTextPrimary,
-
-    surfaceVariant = LightSurfaceVariant,
-    onSurfaceVariant = LightTextSecondary,
-
-    outline = LightBorder,
-
-    error = Error,
-    onError = Warning,
+    onError = Color.White,
 )
 
 @Composable
