@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ProductViewModel @Inject constructor(
     private val getAllProductUseCase: GetAllProductUseCase,
-    private val getProductByIdUseCase: GetProductByIdUseCase
+    private val getProductByIdUseCase: GetProductByIdUseCase,
 ) : ViewModel() {
     private val _getAllProductUiState = MutableStateFlow<BaseUiState<List<Product>>?>(null)
     val getAllProductUiState = _getAllProductUiState.asStateFlow()

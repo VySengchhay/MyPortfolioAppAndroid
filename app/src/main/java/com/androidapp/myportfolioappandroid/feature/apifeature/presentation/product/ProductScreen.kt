@@ -2,19 +2,28 @@ package com.androidapp.myportfolioappandroid.feature.apifeature.presentation.pro
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.androidapp.myportfolioappandroid.R
 import com.androidapp.myportfolioappandroid.core.common.extensions.showToast
 import com.androidapp.myportfolioappandroid.core.ui.component.FeatureScaffold
 import com.androidapp.myportfolioappandroid.core.ui.state.BaseUiState
@@ -31,6 +40,7 @@ fun ProductScreen(
 ) {
     val context = LocalContext.current
     val getAllProductUiState by viewModel.getAllProductUiState.collectAsStateWithLifecycle()
+    var isShowAddProductDialog by rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(getAllProductUiState) {
         when (val state = getAllProductUiState) {
@@ -40,7 +50,6 @@ fun ProductScreen(
 
             is BaseUiState.Success -> {
                 LoadingUtil.hideLoading()
-                println("=====> data: ${state.data}")
             }
 
             is BaseUiState.Error -> {
@@ -61,6 +70,29 @@ fun ProductScreen(
         modifier = modifier,
         title = "Product",
         onBackClick = onBack,
+        floatingActionButton = {
+            Button(
+                onClick = {
+                    isShowAddProductDialog = true
+                }
+            ) {
+                Row(
+                    modifier = Modifier,
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.im_add),
+                        contentDescription = null
+                    )
+
+                    Spacer(modifier = Modifier.padding(horizontal = AppSpacing.extraSmall))
+
+                    Text(
+                        text = "Add Product"
+                    )
+                }
+            }
+        }
     ) { innerPadding ->
         when (val state = getAllProductUiState) {
             is BaseUiState.Success -> {

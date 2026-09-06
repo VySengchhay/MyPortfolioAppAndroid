@@ -51,4 +51,45 @@ object ValidationUtil {
             else -> null
         }
     }
+
+    fun validatePrice(price: String): String? {
+        val priceValue = price.trim().toDoubleOrNull()
+
+        return when {
+            price.isBlank() ->
+                "Price is required"
+
+            priceValue == null ->
+                "Enter a valid number"
+
+            priceValue <= 0.0 ->
+                "Price must be greater than 0"
+
+            priceValue > 1_000_000.0 ->
+                "Price must not exceed 1,000,000"
+
+            else -> null
+        }
+    }
+
+    fun validateCategory(category: String): String? {
+        return when {
+            category.isBlank() ->
+                "Category is required"
+
+            else -> null
+        }
+    }
+
+    fun validateImage(image: String): String? {
+        return when {
+            image.isBlank() ->
+                "Image URL is required"
+
+            !Patterns.WEB_URL.matcher(image.trim()).matches() ->
+                "Enter a valid image URL"
+
+            else -> null
+        }
+    }
 }

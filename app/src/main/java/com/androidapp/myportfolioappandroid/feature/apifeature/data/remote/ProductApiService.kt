@@ -12,4 +12,5 @@ interface ProductApiService {
     suspend fun getProductById(
         @Path("id") id: Int
     ): ProductResponseDto
+
 }

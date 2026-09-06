@@ -45,7 +45,6 @@ fun ProductDetailScreen(
 
             is BaseUiState.Success -> {
                 LoadingUtil.hideLoading()
-                println("=====> data: ${state.data}")
 
                 Column(
                     modifier = Modifier
