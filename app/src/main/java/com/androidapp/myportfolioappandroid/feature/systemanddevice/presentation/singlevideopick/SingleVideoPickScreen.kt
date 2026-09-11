@@ -1,4 +1,4 @@
-package com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.singlephotopick
+package com.androidapp.myportfolioappandroid.feature.systemanddevice.presentation.singlevideopick
 
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -17,53 +17,54 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import coil.compose.AsyncImage
 import com.androidapp.myportfolioappandroid.core.ui.component.FeatureScaffold
-import com.androidapp.myportfolioappandroid.core.ui.component.TopAppBarCategory
 import com.androidapp.myportfolioappandroid.core.ui.theme.AppSpacing
+import com.androidapp.myportfolioappandroid.feature.systemanddevice.presentation.component.VideoPlayer
 
 @Composable
-fun SinglePhotoPickScreen(
+fun SingleVideoPickScreen(
     modifier: Modifier = Modifier,
+    viewModel: SingleVideoViewModel = hiltViewModel(),
     onBack: () -> Unit,
-    viewModel: SinglePhotoPickViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
-    val selectSingleImageViewModel by viewModel.uiState.collectAsStateWithLifecycle()
-    val pickMedia = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    val pickMedia = rememberLauncherForActivityResult(
+        ActivityResultContracts.PickVisualMedia()
+    ) { uri ->
         if (uri != null) {
-            viewModel.onEvent(
-                SinglePhotoPickEvent.SelectedImage(uri)
-            )
+            viewModel.onSelectedVideo(uri)
         } else {
             Toast.makeText(
                 context,
-                "No image selected",
+                "No video selected",
                 Toast.LENGTH_SHORT
             ).show()
         }
     }
 
-    fun onPickImage() {
-        val visualImage = PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
-        pickMedia.launch(visualImage)
+    fun onSelectedVideo() {
+        pickMedia.launch(
+            PickVisualMediaRequest(
+                ActivityResultContracts.PickVisualMedia.VideoOnly
+            )
+        )
     }
 
     FeatureScaffold(
         modifier = modifier,
-        title = "Select Single Image",
+        title = "Select Single Video",
         onBackClick = onBack,
         bottomBar = {
             Button(
@@ -72,18 +73,18 @@ fun SinglePhotoPickScreen(
                     .padding(AppSpacing.medium)
                 ,
                 onClick = {
-                    onPickImage()
+                    onSelectedVideo()
                 },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primary
                 )
             ) {
                 Text(
-                    text = "Select Image"
+                    text = "Select Single Video"
                 )
             }
         }
-    ) {  innerPadding ->
+    ) { innerPadding ->
         Column(
             modifier = modifier
                 .padding(innerPadding)
@@ -91,7 +92,7 @@ fun SinglePhotoPickScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            if (selectSingleImageViewModel.imageUri != null) {
+            if (uiState.videoUri != null) {
                 Box(
                     modifier = Modifier
                         .padding(AppSpacing.medium)
@@ -104,17 +105,11 @@ fun SinglePhotoPickScreen(
                             color = MaterialTheme.colorScheme.primary
                         )
                 ) {
-                    AsyncImage(
-                        modifier = Modifier
-                            .padding(AppSpacing.extraSmall)
-                            .wrapContentHeight()
-                            .clip(
-                                shape = RoundedCornerShape(16.dp)
-                            ),
-                        contentScale = ContentScale.Fit,
-                        model = selectSingleImageViewModel.imageUri,
-                        contentDescription = null
-                    )
+                    uiState.videoUri?.let {
+                        VideoPlayer(
+                            videoUri = it
+                        )
+                    }
                 }
             }
         }

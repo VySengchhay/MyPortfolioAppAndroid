@@ -1,4 +1,4 @@
-package com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.photoandvideopick
+package com.androidapp.myportfolioappandroid.feature.systemanddevice.presentation.photoandvideopick
 
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -31,8 +31,8 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.androidapp.myportfolioappandroid.core.ui.component.FeatureScaffold
 import com.androidapp.myportfolioappandroid.core.ui.theme.AppSpacing
-import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.component.AsyncImageComponent
-import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.component.VideoPlayer
+import com.androidapp.myportfolioappandroid.feature.systemanddevice.presentation.component.AsyncImageComponent
+import com.androidapp.myportfolioappandroid.feature.systemanddevice.presentation.component.VideoPlayer
 
 @Composable
 fun PhotoAndVideoPickScreen(

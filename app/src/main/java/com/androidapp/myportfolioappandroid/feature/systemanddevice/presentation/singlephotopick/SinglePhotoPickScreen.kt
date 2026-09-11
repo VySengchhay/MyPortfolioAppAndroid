@@ -1,4 +1,4 @@
-package com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.multiplephotopick
+package com.androidapp.myportfolioappandroid.feature.systemanddevice.presentation.singlephotopick
 
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -13,9 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -35,20 +33,18 @@ import com.androidapp.myportfolioappandroid.core.ui.component.FeatureScaffold
 import com.androidapp.myportfolioappandroid.core.ui.theme.AppSpacing
 
 @Composable
-fun MultiplePhotoPickScreen(
+fun SinglePhotoPickScreen(
     modifier: Modifier = Modifier,
     onBack: () -> Unit,
-    viewModel: MultiplePhotoPickViewModel = hiltViewModel()
+    viewModel: SinglePhotoPickViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val scrollState = rememberScrollState()
-
-    val pickMedia = rememberLauncherForActivityResult(
-        ActivityResultContracts.PickMultipleVisualMedia(5)
-    ) { uris ->
-        if (uris.isNotEmpty()) {
-            viewModel.onSelectedImage(uris)
+    val selectSingleImageViewModel by viewModel.uiState.collectAsStateWithLifecycle()
+    val pickMedia = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+        if (uri != null) {
+            viewModel.onEvent(
+                SinglePhotoPickEvent.SelectedImage(uri)
+            )
         } else {
             Toast.makeText(
                 context,
@@ -58,17 +54,14 @@ fun MultiplePhotoPickScreen(
         }
     }
 
-    fun onSelectedImage() {
-        pickMedia.launch(
-            PickVisualMediaRequest(
-                ActivityResultContracts.PickVisualMedia.ImageOnly
-            )
-        )
+    fun onPickImage() {
+        val visualImage = PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+        pickMedia.launch(visualImage)
     }
 
     FeatureScaffold(
         modifier = modifier,
-        title = "Select Multiple Images",
+        title = "Select Single Image",
         onBackClick = onBack,
         bottomBar = {
             Button(
@@ -77,52 +70,49 @@ fun MultiplePhotoPickScreen(
                     .padding(AppSpacing.medium)
                 ,
                 onClick = {
-                    onSelectedImage()
+                    onPickImage()
                 },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primary
                 )
             ) {
                 Text(
-                    text = "Select Multiple Image"
+                    text = "Select Image"
                 )
             }
         }
-    ) { innerPadding ->
+    ) {  innerPadding ->
         Column(
             modifier = modifier
                 .padding(innerPadding)
-                .fillMaxSize()
-                .verticalScroll(state = scrollState),
+                .fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            uiState.imageUris?.let {
-                it.forEach { imageUri ->
-                    Box(
+            if (selectSingleImageViewModel.imageUri != null) {
+                Box(
+                    modifier = Modifier
+                        .padding(AppSpacing.medium)
+                        .wrapContentWidth()
+                        .wrapContentHeight()
+                        .clip(
+                            shape = RoundedCornerShape(16.dp)
+                        )
+                        .background(
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                ) {
+                    AsyncImage(
                         modifier = Modifier
-                            .padding(AppSpacing.medium)
-                            .wrapContentWidth()
+                            .padding(AppSpacing.extraSmall)
                             .wrapContentHeight()
                             .clip(
                                 shape = RoundedCornerShape(16.dp)
-                            )
-                            .background(
-                                color = MaterialTheme.colorScheme.primary
-                            )
-                    ) {
-                        AsyncImage(
-                            modifier = Modifier
-                                .padding(AppSpacing.extraSmall)
-                                .wrapContentHeight()
-                                .clip(
-                                    shape = RoundedCornerShape(16.dp)
-                                ),
-                            contentScale = ContentScale.Fit,
-                            model = imageUri,
-                            contentDescription = null
-                        )
-                    }
+                            ),
+                        contentScale = ContentScale.Fit,
+                        model = selectSingleImageViewModel.imageUri,
+                        contentDescription = null
+                    )
                 }
             }
         }

@@ -1,4 +1,4 @@
-package com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.singlephotopick
+package com.androidapp.myportfolioappandroid.feature.systemanddevice.presentation.singlephotopick
 
 import android.net.Uri
 import androidx.lifecycle.SavedStateHandle

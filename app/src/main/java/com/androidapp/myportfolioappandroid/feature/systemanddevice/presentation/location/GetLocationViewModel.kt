@@ -1,6 +1,5 @@
-package com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.location
+package com.androidapp.myportfolioappandroid.feature.systemanddevice.presentation.location
 
-import androidx.compose.runtime.MutableState
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

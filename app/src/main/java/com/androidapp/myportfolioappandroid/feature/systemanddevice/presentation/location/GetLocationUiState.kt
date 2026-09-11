@@ -1,4 +1,4 @@
-package com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.location
+package com.androidapp.myportfolioappandroid.feature.systemanddevice.presentation.location
 
 data class GetLocationUiState(
     val latitude: Double = 0.0,

@@ -1,11 +1,11 @@
-package com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation
+package com.androidapp.myportfolioappandroid.feature.systemanddevice.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.androidapp.myportfolioappandroid.core.ui.state.BaseUiState
-import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.data.FeatureUiData
+import com.androidapp.myportfolioappandroid.feature.systemanddevice.presentation.data.FeatureUiData
 import com.androidapp.myportfolioappandroid.core.ui.state.FeatureCategory
-import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.model.FeatureUiModel
+import com.androidapp.myportfolioappandroid.feature.systemanddevice.presentation.model.FeatureUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

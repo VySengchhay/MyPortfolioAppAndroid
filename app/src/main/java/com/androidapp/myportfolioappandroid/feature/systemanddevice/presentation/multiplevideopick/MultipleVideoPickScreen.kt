@@ -1,4 +1,4 @@
-package com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.multiplevideopick
+package com.androidapp.myportfolioappandroid.feature.systemanddevice.presentation.multiplevideopick
 
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -25,15 +25,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import coil.compose.AsyncImage
 import com.androidapp.myportfolioappandroid.core.ui.component.FeatureScaffold
 import com.androidapp.myportfolioappandroid.core.ui.theme.AppSpacing
-import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.component.VideoPlayer
+import com.androidapp.myportfolioappandroid.feature.systemanddevice.presentation.component.VideoPlayer
 
 @Composable
 fun MultipleVideoPickScreen(

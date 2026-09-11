@@ -1,16 +1,15 @@
-package com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation
+package com.androidapp.myportfolioappandroid.feature.systemanddevice.presentation
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation3.runtime.NavKey
 import com.androidapp.myportfolioappandroid.core.ui.component.FeatureItemCard
 import com.androidapp.myportfolioappandroid.core.ui.component.TopAppBarCategory
 import com.androidapp.myportfolioappandroid.core.ui.state.BaseUiState
@@ -21,7 +20,7 @@ import com.androidapp.myportfolioappandroid.core.util.LoadingUtil
 fun SystemAndDeviceScreen(
     modifier: Modifier,
     onBackClick: () -> Unit,
-    onFeatureClick: (String) -> Unit,
+    onFeatureClick: (NavKey) -> Unit,
     systemAndDeviceViewModel: SystemAndDeviceViewModel = hiltViewModel()
 ) {
     val systemAndDeviceUiState by systemAndDeviceViewModel.systemAndDeviceUiModelList.collectAsStateWithLifecycle()
@@ -72,7 +71,7 @@ fun SystemAndDeviceScreen(
                             description = data.description,
                             imageRes = data.imageRes,
                             onClick = {
-                                onFeatureClick(data.route)
+                                onFeatureClick(data.destination)
                             },
                         )
                     }

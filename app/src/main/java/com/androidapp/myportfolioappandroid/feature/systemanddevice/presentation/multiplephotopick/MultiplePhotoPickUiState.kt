@@ -1,4 +1,4 @@
-package com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.multiplephotopick
+package com.androidapp.myportfolioappandroid.feature.systemanddevice.presentation.multiplephotopick
 
 import android.net.Uri
 

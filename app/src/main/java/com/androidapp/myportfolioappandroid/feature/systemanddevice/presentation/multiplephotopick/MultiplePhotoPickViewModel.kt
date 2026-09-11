@@ -1,8 +1,7 @@
-package com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.multiplephotopick
+package com.androidapp.myportfolioappandroid.feature.systemanddevice.presentation.multiplephotopick
 
 import android.net.Uri
 import androidx.lifecycle.ViewModel
-import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.singlevideopick.SingleVideoUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

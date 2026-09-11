@@ -1,4 +1,4 @@
-package com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.singlevideopick
+package com.androidapp.myportfolioappandroid.feature.systemanddevice.presentation.singlevideopick
 
 import android.net.Uri
 import androidx.lifecycle.ViewModel

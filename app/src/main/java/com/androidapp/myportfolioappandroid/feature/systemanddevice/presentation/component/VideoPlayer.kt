@@ -1,4 +1,4 @@
-package com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.component
+package com.androidapp.myportfolioappandroid.feature.systemanddevice.presentation.component
 
 import android.net.Uri
 import androidx.compose.foundation.layout.aspectRatio
