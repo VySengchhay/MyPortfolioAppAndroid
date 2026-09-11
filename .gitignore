@@ -12,3 +12,6 @@ captures/
 *.keystore
 *.apk
 *.aab
+
+# Firebase config (contains project-specific API keys)
+app/google-services.json
