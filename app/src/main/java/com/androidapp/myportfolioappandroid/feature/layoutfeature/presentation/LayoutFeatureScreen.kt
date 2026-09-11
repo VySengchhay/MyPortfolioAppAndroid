@@ -3,26 +3,24 @@ package com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation3.runtime.NavKey
 import com.androidapp.myportfolioappandroid.core.ui.component.FeatureItemCard
 import com.androidapp.myportfolioappandroid.core.ui.component.TopAppBarCategory
 import com.androidapp.myportfolioappandroid.core.ui.state.BaseUiState
 import com.androidapp.myportfolioappandroid.core.ui.theme.AppSpacing
 import com.androidapp.myportfolioappandroid.core.util.LoadingUtil
-import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.component.ItemCard
-import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.SystemAndDeviceViewModel
 
 @Composable
 fun LayoutFeatureScreen(
     modifier: Modifier,
     onBackClick: () -> Unit,
-    onFeatureClick: (String) -> Unit,
+    onFeatureClick: (NavKey) -> Unit,
     layoutFeatureViewModel: LayoutFeatureViewModel = hiltViewModel()
 ) {
     val layoutFeatureUiState by layoutFeatureViewModel.layoutFeatureUiModelList.collectAsStateWithLifecycle()
@@ -74,7 +72,7 @@ fun LayoutFeatureScreen(
                             description = state.data[it].description,
                             imageRes = state.data[it].imageRes,
                             onClick = {
-                                onFeatureClick(state.data[it].route)
+                                onFeatureClick(state.data[it].destination)
                             }
                         )
                     }

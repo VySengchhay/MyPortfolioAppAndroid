@@ -9,6 +9,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation3.runtime.NavKey
 import com.androidapp.myportfolioappandroid.core.ui.component.FeatureItemCard
 import com.androidapp.myportfolioappandroid.core.ui.component.TopAppBarCategory
 import com.androidapp.myportfolioappandroid.core.ui.state.BaseUiState
@@ -19,7 +20,7 @@ import com.androidapp.myportfolioappandroid.core.util.LoadingUtil
 fun ApiScreen(
     modifier: Modifier,
     onBackClick: () -> Unit,
-    onFeatureClick: (String) -> Unit,
+    onFeatureClick: (NavKey) -> Unit,
     apiViewModel: ApiViewModel = hiltViewModel()
 ) {
     val apiUiState by apiViewModel.featureApiUiModelList.collectAsStateWithLifecycle()
@@ -70,7 +71,7 @@ fun ApiScreen(
                             description = data.description,
                             imageRes = data.imageRes,
                             onClick = {
-                                onFeatureClick(data.route)
+                                onFeatureClick(data.destination)
                             },
                         )
                     }

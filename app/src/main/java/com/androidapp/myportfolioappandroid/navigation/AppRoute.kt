@@ -1,97 +1,66 @@
 package com.androidapp.myportfolioappandroid.navigation
 
+import androidx.navigation3.runtime.NavKey
 import com.androidapp.myportfolioappandroid.feature.apifeature.domain.model.task.Task
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 
 @Serializable
-data object LoginRoute
+data object LoginRoute : NavKey
 
 @Serializable
-data object SignUpRoute
+data object SignUpRoute : NavKey
 
 @Serializable
-data object ProfileRoute
+data object ProfileRoute : NavKey
 
 @Serializable
-data object DashboardRoute
+data object DashboardRoute : NavKey
 
 @Serializable
-data object NotificationRoute
+data object NotificationRoute : NavKey
 
 @Serializable
-data class LayoutRoute(
-    val route : String
-)
+data object LayoutRoute : NavKey
 
 @Serializable
-data class RowLayoutRoute(
-    val route : String
-)
+data object RowLayoutRoute : NavKey
 
 @Serializable
-data class ColumnLayoutRoute(
-    val route : String
-)
-
+data object ColumnLayoutRoute : NavKey
 
 @Serializable
-data class BoxLayoutRoute(
-    val route : String
-)
+data object BoxLayoutRoute : NavKey
 
 @Serializable
-data class LazyRowLayoutRoute(
-    val route : String
-)
+data object LazyRowLayoutRoute : NavKey
 
 @Serializable
-data class LazyColumnLayoutRoute(
-    val route : String
-)
+data object LazyColumnLayoutRoute : NavKey
 
 @Serializable
-data class LazyVerticalGridLayoutRoute(
-    val route : String
-)
+data object LazyVerticalGridLayoutRoute : NavKey
 
 @Serializable
-data class LazyHorizontalGridLayoutRoute(
-    val route : String
-)
+data object LazyHorizontalGridLayoutRoute : NavKey
 
 @Serializable
-data class HorizontalPagerLayoutRoute(
-    val route : String
-)
+data object HorizontalPagerLayoutRoute : NavKey
 
 @Serializable
-data class VerticalPagerLayoutRoute(
-    val route : String
-)
+data object VerticalPagerLayoutRoute : NavKey
 
 @Serializable
-data class ComponentRoute(
-    val route : String
-)
+data object ApiRoute : NavKey
 
 @Serializable
-data class ApiRoute(
-    val route : String
-)
+data object UserApiRoute : NavKey
 
 @Serializable
-data class UserApiRoute(
-    val route : String
-)
+data object TaskRoomDbRoute : NavKey
 
 @Serializable
-data class TaskRoomDbRoute(
-    val route : String
-)
-
-@Serializable
-data object CreateTaskRoomDbRoute
+data object CreateTaskRoomDbRoute : NavKey
 
 @Serializable
 data class UpdateTaskRoomDbRoute(
@@ -99,56 +68,41 @@ data class UpdateTaskRoomDbRoute(
     val title: String,
     val description: String,
     val completeYN: String
-)
+) : NavKey
 
 @Serializable
-data class ProductRoute(
-    val route : String
-)
+data object ProductRoute : NavKey
 
 @Serializable
 data class ProductDetailRoute(
     val productId: Int
-)
-
-
+) : NavKey
 
 @Serializable
-data class DeviceSystemRoute(
-    val route : String
-)
+data object DeviceSystemRoute : NavKey
 
 @Serializable
-data class SinglePhotoPickRoute(
-    val route : String
-)
+data object SinglePhotoPickRoute : NavKey
 
 @Serializable
-data class SingleVideoPickRoute(
-    val route : String
-)
-@Serializable
-data class MultiplePhotoPickRoute(
-    val route : String
-)
+data object SingleVideoPickRoute : NavKey
 
 @Serializable
-data class MultipleVideoPickRoute(
-    val route : String
-)
+data object MultiplePhotoPickRoute : NavKey
 
 @Serializable
-data class PhotoAndVideoPickRoute(
-    val route : String
-)
+data object MultipleVideoPickRoute : NavKey
 
 @Serializable
-data class CameraLauncherRoute(
-    val route : String
-)
+data object PhotoAndVideoPickRoute : NavKey
 
 @Serializable
-data class GetLocationRoute(
-    val route: String
-)
+data object GetLocationRoute : NavKey
 
+@Serializable
+data object CameraXRoute : NavKey
+
+@Serializable
+data class ImagePreviewRoute(
+    val imageUri: String
+) : NavKey

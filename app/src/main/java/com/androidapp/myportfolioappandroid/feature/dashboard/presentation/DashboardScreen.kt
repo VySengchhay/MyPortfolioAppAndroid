@@ -13,6 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation3.runtime.NavKey
 import com.androidapp.myportfolioappandroid.core.common.extensions.colors
 import com.androidapp.myportfolioappandroid.core.ui.state.BaseUiState
 import com.androidapp.myportfolioappandroid.core.ui.theme.AppSpacing
@@ -26,7 +27,7 @@ fun DashBoardScreen(
     userName: String,
     onProfileClick: () -> Unit,
     onNotificationClick: () -> Unit,
-    onCategoryClick: (String) -> Unit,
+    onCategoryClick: (NavKey) -> Unit,
     dashboardViewModel: DashboardViewModel = hiltViewModel()
 ) {
     val dashboardCardUiState by dashboardViewModel.dashboardCardUiModelList.collectAsStateWithLifecycle()
@@ -81,7 +82,7 @@ fun DashBoardScreen(
                                 )
                                 .clickable(
                                     onClick = {
-                                        onCategoryClick(state.data[it].route)
+                                        onCategoryClick(state.data[it].destination)
                                     }
                                 )
                             ,

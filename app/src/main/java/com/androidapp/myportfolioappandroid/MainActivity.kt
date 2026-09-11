@@ -20,13 +20,14 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.compose.rememberNavController
+import androidx.navigation3.runtime.rememberNavBackStack
 import com.androidapp.myportfolioappandroid.core.service.fms.NotificationPermissionRequest
 import com.androidapp.myportfolioappandroid.core.ui.loading.LoadingContent
 import com.androidapp.myportfolioappandroid.core.ui.theme.MyPortfolioAppAndroidTheme
 import com.androidapp.myportfolioappandroid.core.util.LoadingUtil
 import com.androidapp.myportfolioappandroid.feature.splashscreen.SplashScreenViewModel
 import com.androidapp.myportfolioappandroid.navigation.AppNavHost
+import com.androidapp.myportfolioappandroid.navigation.LoginRoute
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -51,14 +52,14 @@ class MainActivity : ComponentActivity() {
             NotificationPermissionRequest()
 
             MyPortfolioAppAndroidTheme {
-                val navController = rememberNavController()
+                val backStack = rememberNavBackStack(LoginRoute)
 
                 if (LoadingUtil.isLoading.value) {
                     LoadingContent()
                 }
 
                 AppNavHost(
-                    navController
+                    backStack
                 )
             }
         }

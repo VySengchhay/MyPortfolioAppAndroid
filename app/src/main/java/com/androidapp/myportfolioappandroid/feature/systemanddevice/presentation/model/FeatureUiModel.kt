@@ -1,6 +1,7 @@
-package com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.model
+package com.androidapp.myportfolioappandroid.feature.systemanddevice.presentation.model
 
 import androidx.annotation.DrawableRes
+import androidx.navigation3.runtime.NavKey
 import com.androidapp.myportfolioappandroid.core.ui.state.FeatureCategory
 
 data class FeatureUiModel(
@@ -8,6 +9,6 @@ data class FeatureUiModel(
     val title: String,
     val description: String,
     val category: FeatureCategory,
-    val route: String,
+    val destination: NavKey,
     @DrawableRes val imageRes: Int? = null,
 )

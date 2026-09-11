@@ -1,8 +1,15 @@
-package com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.data
+package com.androidapp.myportfolioappandroid.feature.systemanddevice.presentation.data
 
 import com.androidapp.myportfolioappandroid.R
 import com.androidapp.myportfolioappandroid.core.ui.state.FeatureCategory
-import com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.model.FeatureUiModel
+import com.androidapp.myportfolioappandroid.feature.systemanddevice.presentation.model.FeatureUiModel
+import com.androidapp.myportfolioappandroid.navigation.CameraXRoute
+import com.androidapp.myportfolioappandroid.navigation.GetLocationRoute
+import com.androidapp.myportfolioappandroid.navigation.MultiplePhotoPickRoute
+import com.androidapp.myportfolioappandroid.navigation.MultipleVideoPickRoute
+import com.androidapp.myportfolioappandroid.navigation.PhotoAndVideoPickRoute
+import com.androidapp.myportfolioappandroid.navigation.SinglePhotoPickRoute
+import com.androidapp.myportfolioappandroid.navigation.SingleVideoPickRoute
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -16,7 +23,7 @@ class FeatureUiData @Inject constructor() {
             title = "Single photo pick",
             description = "Pick and display a single photo from your device using the Android Photo Picker.",
             category = FeatureCategory.SYSTEM_DEVICE,
-            route = "single_photo_pick_route",
+            destination = SinglePhotoPickRoute,
             imageRes = R.drawable.im_photopick,
         ),
         FeatureUiModel(
@@ -24,7 +31,7 @@ class FeatureUiData @Inject constructor() {
             title = "Single video pick",
             description = "Pick and display a single video from your device using the Android Video Picker.",
             category = FeatureCategory.SYSTEM_DEVICE,
-            route = "single_video_pick_route",
+            destination = SingleVideoPickRoute,
             imageRes = R.drawable.im_mul_video,
         ),
         FeatureUiModel(
@@ -32,7 +39,7 @@ class FeatureUiData @Inject constructor() {
             title = "Multiple photo pick",
             description = "Pick and display a multiple photo from your device using the Android Photo Picker.",
             category = FeatureCategory.SYSTEM_DEVICE,
-            route = "multiple_photo_pick_route",
+            destination = MultiplePhotoPickRoute,
             imageRes = R.drawable.im_photopick,
         ),
         FeatureUiModel(
@@ -40,7 +47,7 @@ class FeatureUiData @Inject constructor() {
             title = "Multiple video pick",
             description = "Pick and display a multiple video from your device using the Android Video Picker.",
             category = FeatureCategory.SYSTEM_DEVICE,
-            route = "multiple_video_pick_route",
+            destination = MultipleVideoPickRoute,
             imageRes = R.drawable.im_mul_video,
         ),
         FeatureUiModel(
@@ -48,24 +55,24 @@ class FeatureUiData @Inject constructor() {
             title = "Select Photo & Image pick",
             description = "Pick and display a photo & video from your device using the Android Photo & Video Picker.",
             category = FeatureCategory.SYSTEM_DEVICE,
-            route = "photo_and_video_pick_route",
+            destination = PhotoAndVideoPickRoute,
             imageRes = R.drawable.im_photo_video,
-        ),
-        FeatureUiModel(
-            id = "DS6",
-            title = "Camera Launcher",
-            description = "Launch the device camera to capture a photo or video.",
-            category = FeatureCategory.SYSTEM_DEVICE,
-            route = "camera_launcher_route",
-            imageRes = R.drawable.im_camera,
         ),
         FeatureUiModel(
             id = "DS7",
             title = "Get Location",
             description = "Access the device's current location to determine its latitude and longitude using location services.",
             category = FeatureCategory.SYSTEM_DEVICE,
-            route = "get_location_route",
+            destination = GetLocationRoute,
             imageRes = R.drawable.im_location,
+        ),
+        FeatureUiModel(
+            id = "DS8",
+            title = "CameraX",
+            description = "Capture and preview photos using the device camera with CameraX.",
+            category = FeatureCategory.SYSTEM_DEVICE,
+            destination = CameraXRoute,
+            imageRes = R.drawable.im_camerax,
         ),
     )
     

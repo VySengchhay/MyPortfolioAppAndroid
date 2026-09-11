@@ -3,6 +3,9 @@ package com.androidapp.myportfolioappandroid.feature.apifeature.presentation.dat
 import com.androidapp.myportfolioappandroid.R
 import com.androidapp.myportfolioappandroid.core.ui.state.FeatureCategory
 import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.model.FeatureApiUiModel
+import com.androidapp.myportfolioappandroid.navigation.ProductRoute
+import com.androidapp.myportfolioappandroid.navigation.TaskRoomDbRoute
+import com.androidapp.myportfolioappandroid.navigation.UserApiRoute
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -15,7 +18,7 @@ class FeatureApiUiData @Inject constructor() {
             title = "User",
             description = "Pick and display a single photo from your device using the Android Photo Picker.",
             category = FeatureCategory.API,
-            route = "api_user_route",
+            destination = UserApiRoute,
             imageRes = R.drawable.im_user,
         ),
         FeatureApiUiModel(
@@ -23,7 +26,7 @@ class FeatureApiUiData @Inject constructor() {
             title = "Task",
             description = "Create, store, update, and delete tasks using Room Database.",
             category = FeatureCategory.API,
-            route = "task_roomdb_route",
+            destination = TaskRoomDbRoute,
             imageRes = R.drawable.im_task,
         ),
         FeatureApiUiModel(
@@ -31,7 +34,7 @@ class FeatureApiUiData @Inject constructor() {
             title = "Product",
             description = "Fetch and display product data from the Fake Store API using Retrofit.\"",
             category = FeatureCategory.API,
-            route = "product_route",
+            destination = ProductRoute,
             imageRes = R.drawable.im_bag,
         ),
     )

@@ -68,8 +68,10 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
-    //navi2
-    implementation(libs.androidx.navigation.compose)
+    //navigation3
+    implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.androidx.navigation3.ui)
+    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
 
     //icons
     implementation(libs.androidx.compose.material.icons.extended)
@@ -108,4 +110,10 @@ dependencies {
     //location
     implementation(libs.play.services.location)
     implementation(libs.accompanist.permissions)
+
+    //cameraX
+    implementation(libs.androidx.camera.core)
+    implementation(libs.androidx.camera.camera2)
+    implementation(libs.androidx.camera.lifecycle)
+    implementation(libs.androidx.camera.view)
 }
