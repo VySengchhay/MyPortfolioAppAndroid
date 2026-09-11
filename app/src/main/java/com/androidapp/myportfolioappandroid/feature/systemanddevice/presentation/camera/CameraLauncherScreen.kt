@@ -1,7 +1,8 @@
-package com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.camera
+package com.androidapp.myportfolioappandroid.feature.systemanddevice.presentation.camera
 
 import android.Manifest
 import android.app.AlertDialog
+import android.content.pm.PackageManager
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
@@ -84,8 +85,8 @@ fun CameraLauncherScreen(
     fun checkPermission() {
         val isGranted = ContextCompat.checkSelfPermission(
             context,
-            android.Manifest.permission.CAMERA
-        ) == android.content.pm.PackageManager.PERMISSION_GRANTED
+            Manifest.permission.CAMERA
+        ) == PackageManager.PERMISSION_GRANTED
 
         if (isGranted) {
             cameraLauncher.launch(null)

@@ -3,6 +3,7 @@ package com.androidapp.myportfolioappandroid.feature.systemanddevice.presentatio
 import com.androidapp.myportfolioappandroid.R
 import com.androidapp.myportfolioappandroid.core.ui.state.FeatureCategory
 import com.androidapp.myportfolioappandroid.feature.systemanddevice.presentation.model.FeatureUiModel
+import com.androidapp.myportfolioappandroid.navigation.CameraLauncherRoute
 import com.androidapp.myportfolioappandroid.navigation.CameraXRoute
 import com.androidapp.myportfolioappandroid.navigation.GetLocationRoute
 import com.androidapp.myportfolioappandroid.navigation.MultiplePhotoPickRoute
@@ -68,6 +69,14 @@ class FeatureUiData @Inject constructor() {
         ),
         FeatureUiModel(
             id = "DS8",
+            title = "CameraLauncher",
+            description = "Capture and preview photos using the device camera with CameraLauncher",
+            category = FeatureCategory.SYSTEM_DEVICE,
+            destination = CameraLauncherRoute,
+            imageRes = R.drawable.im_camera,
+        ),
+        FeatureUiModel(
+            id = "DS9",
             title = "CameraX",
             description = "Capture and preview photos using the device camera with CameraX.",
             category = FeatureCategory.SYSTEM_DEVICE,

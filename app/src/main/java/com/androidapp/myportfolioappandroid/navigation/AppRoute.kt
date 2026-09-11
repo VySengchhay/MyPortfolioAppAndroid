@@ -103,6 +103,10 @@ data object GetLocationRoute : NavKey
 data object CameraXRoute : NavKey
 
 @Serializable
+data object CameraLauncherRoute : NavKey
+
+
+@Serializable
 data class ImagePreviewRoute(
     val imageUri: String
 ) : NavKey

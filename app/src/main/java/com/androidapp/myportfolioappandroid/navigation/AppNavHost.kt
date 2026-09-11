@@ -40,6 +40,7 @@ import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.r
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.verticalpagerlayout.VerticalPagerLayoutScreen
 import com.androidapp.myportfolioappandroid.feature.notification.NotificationScreen
 import com.androidapp.myportfolioappandroid.feature.systemanddevice.presentation.SystemAndDeviceScreen
+import com.androidapp.myportfolioappandroid.feature.systemanddevice.presentation.camera.CameraLauncherScreen
 import com.androidapp.myportfolioappandroid.feature.systemanddevice.presentation.camerax.CameraXScreen
 import com.androidapp.myportfolioappandroid.feature.systemanddevice.presentation.camerax.ScreenPreviewImage
 import com.androidapp.myportfolioappandroid.feature.systemanddevice.presentation.location.GetLocationScreen
@@ -355,6 +356,15 @@ fun AppNavHost(
                     }
                 )
             }
+
+            entry<CameraLauncherRoute> {
+                CameraLauncherScreen(
+                    onBack = {
+                        backStack.removeLastOrNull()
+                    }
+                )
+            }
+
 
             entry<UserApiRoute> {
                 UserApiScreen(

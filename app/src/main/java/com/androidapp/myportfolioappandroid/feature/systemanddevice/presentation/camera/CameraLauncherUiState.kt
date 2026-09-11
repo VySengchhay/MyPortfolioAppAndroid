@@ -1,4 +1,4 @@
-package com.androidapp.myportfolioappandroid.feature.sytemanddevice.presentation.camera
+package com.androidapp.myportfolioappandroid.feature.systemanddevice.presentation.camera
 
 import android.graphics.Bitmap
 
