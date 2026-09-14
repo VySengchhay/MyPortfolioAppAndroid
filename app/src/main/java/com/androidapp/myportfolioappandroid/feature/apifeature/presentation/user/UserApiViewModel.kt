@@ -67,6 +67,8 @@ class UserApiViewModel @Inject constructor(
                 is AppResult.Error -> {
                     _userList.value = BaseUiState.Error(result.error.toMessage())
                 }
+
+                AppResult.Loading -> Unit
             }
         }
     }
@@ -107,8 +109,9 @@ class UserApiViewModel @Inject constructor(
                         BaseUiState.Error(result.error.toMessage())
                     }
                 }
-            }
 
+                AppResult.Loading -> Unit
+            }
         }
     }
 
@@ -138,6 +141,8 @@ class UserApiViewModel @Inject constructor(
                         BaseUiState.Error(result.error.toMessage())
                     }
                 }
+
+                AppResult.Loading -> Unit
             }
         }
 
@@ -163,6 +168,8 @@ class UserApiViewModel @Inject constructor(
                         BaseUiState.Error(result.error.toMessage())
                     }
                 }
+
+                AppResult.Loading -> Unit
             }
         }
     }

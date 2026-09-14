@@ -1,5 +1,7 @@
 package com.androidapp.myportfolioappandroid.core.common
 
+import com.androidapp.myportfolioappandroid.feature.auth.domain.model.AuthError
+
 sealed interface AppError {
 
     data object BadRequest : AppError
@@ -20,6 +22,10 @@ sealed interface AppError {
 
     data class Unknown(
         val cause: Throwable? = null
+    ) : AppError
+
+    data class Auth(
+        val reason: AuthError
     ) : AppError
 }
 
@@ -48,5 +54,8 @@ fun AppError.toMessage(): String {
 
         is AppError.Unknown ->
             cause?.message ?: "Something went wrong"
+
+        is AppError.Auth ->
+            reason.message
     }
 }

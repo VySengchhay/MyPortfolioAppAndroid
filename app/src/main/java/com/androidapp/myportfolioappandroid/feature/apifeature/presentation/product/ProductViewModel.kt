@@ -40,6 +40,8 @@ class ProductViewModel @Inject constructor(
                 is AppResult.Error -> {
                     _getAllProductUiState.value = BaseUiState.Error(result.error.toMessage())
                 }
+
+                AppResult.Loading -> Unit
             }
         }
     }
@@ -56,6 +58,8 @@ class ProductViewModel @Inject constructor(
                 is AppResult.Error -> {
                     _getProductByIdUiState.value = BaseUiState.Error(result.error.toMessage())
                 }
+
+                AppResult.Loading -> Unit
             }
         }
     }

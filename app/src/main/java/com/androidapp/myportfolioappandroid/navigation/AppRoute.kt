@@ -9,7 +9,10 @@ import kotlinx.serialization.Serializable
 data object LoginRoute : NavKey
 
 @Serializable
-data object SignUpRoute : NavKey
+data object RegisterRoute : NavKey
+
+@Serializable
+data object ForgotPasswordRoute : NavKey
 
 @Serializable
 data object ProfileRoute : NavKey

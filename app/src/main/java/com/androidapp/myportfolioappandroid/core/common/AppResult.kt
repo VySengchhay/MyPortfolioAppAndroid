@@ -9,4 +9,6 @@ sealed interface AppResult<out T> {
     data class Error(
         val error: AppError
     ) : AppResult<Nothing>
+
+    data object Loading : AppResult<Nothing>
 }

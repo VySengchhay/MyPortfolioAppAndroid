@@ -67,6 +67,8 @@ class TaskRoomDbViewModel @Inject constructor(
                 is AppResult.Error -> {
                     _addTaskUiState.value = BaseUiState.Error(result.error.toMessage())
                 }
+
+                AppResult.Loading -> Unit
             }
         }
     }
@@ -84,6 +86,8 @@ class TaskRoomDbViewModel @Inject constructor(
                 is AppResult.Error -> {
                     _updateTaskUiState.value = BaseUiState.Error(result.error.toMessage())
                 }
+
+                AppResult.Loading -> Unit
             }
         }
     }
@@ -98,6 +102,8 @@ class TaskRoomDbViewModel @Inject constructor(
                 is AppResult.Error -> {
                     _deleteTaskUiState.value = BaseUiState.Error(result.error.toMessage())
                 }
+
+                AppResult.Loading -> Unit
             }
         }
     }

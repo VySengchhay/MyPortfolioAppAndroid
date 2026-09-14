@@ -22,12 +22,13 @@ import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.prod
 import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.task.CreateTaskRoomDbScreen
 import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.task.TaskRoomDbScreen
 import com.androidapp.myportfolioappandroid.feature.apifeature.presentation.user.UserApiScreen
-import com.androidapp.myportfolioappandroid.feature.auth.AuthState
-import com.androidapp.myportfolioappandroid.feature.auth.AuthViewModel
-import com.androidapp.myportfolioappandroid.feature.auth.login.LoginScreen
-import com.androidapp.myportfolioappandroid.feature.auth.signup.SignUpScreen
+import com.androidapp.myportfolioappandroid.feature.auth.presentation.Register.RegisterScreen
+import com.androidapp.myportfolioappandroid.feature.auth.presentation.emailverification.EmailVerificationDialog
+import com.androidapp.myportfolioappandroid.feature.auth.presentation.emailverification.EmailVerificationViewModel
+import com.androidapp.myportfolioappandroid.feature.auth.presentation.forgetpassword.ForgotPasswordScreen
+import com.androidapp.myportfolioappandroid.feature.auth.presentation.login.LoginScreen
 import com.androidapp.myportfolioappandroid.feature.dashboard.presentation.DashBoardScreen
-import com.androidapp.myportfolioappandroid.feature.profile.ProfileScreen
+import com.androidapp.myportfolioappandroid.feature.dashboard.presentation.DashboardViewModel
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.LayoutFeatureScreen
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.boxlayout.BoxLayoutScreen
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.columnlayout.ColumnLayoutScreen
@@ -39,6 +40,7 @@ import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.l
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.rowlayout.RowLayoutScreen
 import com.androidapp.myportfolioappandroid.feature.layoutfeature.presentation.verticalpagerlayout.VerticalPagerLayoutScreen
 import com.androidapp.myportfolioappandroid.feature.notification.NotificationScreen
+import com.androidapp.myportfolioappandroid.feature.profile.ProfileScreen
 import com.androidapp.myportfolioappandroid.feature.systemanddevice.presentation.SystemAndDeviceScreen
 import com.androidapp.myportfolioappandroid.feature.systemanddevice.presentation.camera.CameraLauncherScreen
 import com.androidapp.myportfolioappandroid.feature.systemanddevice.presentation.camerax.CameraXScreen
@@ -58,10 +60,48 @@ private fun NavBackStack<NavKey>.replaceAll(vararg keys: NavKey) {
 @Composable
 fun AppNavHost(
     backStack: NavBackStack<NavKey>,
-    authViewModel: AuthViewModel = hiltViewModel(),
+    appNavHostViewModel: AppNavHostViewModel = hiltViewModel(),
 ) {
-    val authUiState by authViewModel.authStateFlow.collectAsStateWithLifecycle()
+    val startupSession by appNavHostViewModel.startupSession.collectAsStateWithLifecycle()
     val context = LocalContext.current
+    val emailVerificationViewModel: EmailVerificationViewModel = hiltViewModel()
+    val emailVerificationState by emailVerificationViewModel.uiState.collectAsStateWithLifecycle()
+
+    // Handled here, not inside the dialog: the dialog leaves composition as soon as the
+    // unverified account is signed out, so it would miss the cancelled result.
+    LaunchedEffect(emailVerificationState.isCancelled) {
+        if (emailVerificationState.isCancelled) {
+            backStack.replaceAll(LoginRoute)
+            if (emailVerificationState.cancelledDueToTimeout) {
+                Toast.makeText(
+                    context,
+                    "Verification timed out. Please register again.",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+            emailVerificationViewModel.onCancellationHandled()
+        }
+    }
+
+    // Same reason as above: verifying signs the user out, which removes the dialog.
+    LaunchedEffect(emailVerificationState.isVerified) {
+        if (emailVerificationState.isVerified) {
+            backStack.replaceAll(LoginRoute)
+            Toast.makeText(
+                context,
+                "Email verified. Please log in.",
+                Toast.LENGTH_LONG
+            ).show()
+            emailVerificationViewModel.onVerificationHandled()
+        }
+    }
+
+    LaunchedEffect(startupSession) {
+        val onAuthScreen = backStack.lastOrNull().let { it == LoginRoute || it == RegisterRoute }
+        if (startupSession == StartupSession.Verified && onAuthScreen) {
+            backStack.replaceAll(DashboardRoute)
+        }
+    }
 
     NavDisplay(
         backStack = backStack,
@@ -72,88 +112,47 @@ fun AppNavHost(
         ),
         entryProvider = entryProvider {
             entry<LoginRoute> {
-                LaunchedEffect(authUiState) {
-                    when (val state = authUiState) {
-
-                        is AuthState.Authenticated -> {
-                            backStack.replaceAll(DashboardRoute)
-                        }
-
-                        is AuthState.Error -> {
-                            Toast.makeText(
-                                context,
-                                state.message,
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-
-                        else -> Unit
-                    }
-                }
-
                 LoginScreen(
-                    modifier = Modifier,
-                    authState = authUiState,
-                    onEvent = authViewModel::onEvent,
-                    onSignUpClick = {
-                        backStack.add(SignUpRoute)
+                    onForgotPasswordClick = {
+                        backStack.add(ForgotPasswordRoute)
                     },
-                    onGoogleSignInClick = {},
+                    onRegisterClick = {
+                        backStack.add(RegisterRoute)
+                    },
                 )
             }
 
-            entry<SignUpRoute> {
-                LaunchedEffect(authUiState) {
-                    when (val state = authUiState) {
-
-                        is AuthState.Authenticated -> {
-                            backStack.replaceAll(DashboardRoute)
-                        }
-
-                        is AuthState.Error -> {
-                            Toast.makeText(
-                                context,
-                                state.message,
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-
-                        else -> Unit
+            entry<ForgotPasswordRoute> {
+                ForgotPasswordScreen(
+                    onBackToLoginClick = {
+                        backStack.removeLastOrNull()
                     }
-                }
+                )
 
-                SignUpScreen(
-                    modifier = Modifier,
-                    authState = authUiState,
-                    onEvent = authViewModel::onEvent,
-                    onBackLoginClick = {
+            }
+
+            entry<RegisterRoute> {
+                RegisterScreen(
+                    onLoginClick = {
                         backStack.removeLastOrNull()
                     }
                 )
             }
 
             entry<ProfileRoute> {
-                LaunchedEffect(authUiState) {
-                    when (authUiState) {
-                        is AuthState.UnAuthenticated -> {
-                            backStack.replaceAll(LoginRoute)
-                        }
-
-                        else -> Unit
-                    }
-                }
-                val userName by authViewModel.userName.collectAsStateWithLifecycle()
                 ProfileScreen(
-                    userName = userName,
                     onBackClick = {
                         backStack.removeLastOrNull()
                     },
-                    onEvent = authViewModel::onEvent
+                    onLoggedOut = {
+                        backStack.replaceAll(LoginRoute)
+                    },
                 )
             }
 
             entry<DashboardRoute> {
-                val userName by authViewModel.userName.collectAsStateWithLifecycle()
+                val dashboardViewModel: DashboardViewModel = hiltViewModel()
+                val userName by dashboardViewModel.userName.collectAsStateWithLifecycle()
 
                 DashBoardScreen(
                     modifier = Modifier,
@@ -445,4 +444,8 @@ fun AppNavHost(
             }
         }
     )
+
+    if (startupSession == StartupSession.PendingVerification) {
+        EmailVerificationDialog(viewModel = emailVerificationViewModel)
+    }
 }
